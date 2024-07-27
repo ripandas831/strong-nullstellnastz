@@ -1,0 +1,216 @@
+\documentclass[answers, 12pt]{exam}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{cd,matrix,arrows,decorations.pathmorphing}
+\usepackage{nicematrix}
+
+\setcounter{MaxMatrixCols}{20}
+\usepackage{
+  %amsmath,
+  %amsthm,
+  amssymb,
+  euscript,
+  %enumerate,% better enumitem
+  url,
+  verbatim,
+  calc,
+}
+
+\textwidth6.5in
+\textheight9in
+\oddsidemargin.2in
+\evensidemargin.2in
+\topmargin-1cm
+\renewcommand{\baselinestretch}{1.2}
+\usepackage{amsmath}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}%[theorem]
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{qns}[theorem]{Question}
+\newtheorem{qns*}{Question}
+\newtheorem{note}{Note}[theorem]
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{ex}{Exercise}
+\newtheorem{example}[theorem]{Example}%[section]
+\newtheorem{eg}[theorem]{Example}
+\newtheorem{obs}[theorem]{Observation}
+%\newtheorem*{claim*}{Claim}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{proposition}[theorem]{Proposition}%[section]
+\newtheorem{prop}[theorem]{Proposition}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{remark}[theorem]{Remark}%[section]
+\newtheorem{remark*}[theorem]{Remark}
+\newtheorem{corollary}[theorem]{Corollary}%[section]
+\newtheorem{lemma}[theorem]{Lemma}%[section]
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\NN}{\mathbb N}
+%\operatorname{deg}{{\deg}}
+\newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\gen}[1]{\langle#1\rangle}
+\newcommand{\Hom}[1]{\text{Hom}_K(#1)}
+\newcommand{\lcm}[1]{\text{lcm}(#1)}
+\newcommand{\rank}[1]{\text{rank}~(#1)}
+%\DeclareMathOperator{\Homm}{\text{Hom}_R( )}
+\DeclareMathOperator{\im}{\text{Im}}
+\DeclareMathOperator{\Ker}{\text{Ker}}
+\DeclareMathOperator{\ch}{\text{char}}
+\DeclareMathOperator{\spec}{\text{spec}}
+\DeclareMathOperator{\mspec}{\text{maxspec}}
+\DeclareMathOperator{\Rank}{\text{Rank~}}
+\DeclareMathOperator{\Null}{\text{Nullity~}}
+\DeclareMathOperator{\Span}{\text{Span~}}
+\DeclareMathOperator{\proj}{proj}
+\newcommand{\tr}[1]{\text{trace}(#1)}
+\DeclareMathOperator{\ann}{\text{Ann}}
+\DeclareMathOperator{\ass}{\text{Ass}}
+\DeclareMathOperator{\supp}{\text{Supp~}}
+\unframedsolutions
+\renewcommand{\solutiontitle}{\noindent Ans. \par\noindent}
+\begin{document}
+\begin{center}\underline{Solution manual of `Introduction to Commutative algebra, Atiyah-Macdonald'}\end{center}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Rings and Ideals}
+
+
+
+\section{Modules}
+
+
+
+\section{Rings and Modules of Fractions}
+
+
+\begin{enumerate}
+
+\item Let $A$ be a ring, $M$ an $A-$module. The support of $M$ is defined to be the set  $\supp(M)$ of prime ideals $p$ of $A$ such that $M_p\neq 0.$ Prove the following results:
+
+		\begin{enumerate}
+	
+			\item $M\neq 0\Leftrightarrow \supp(M)\neq \emptyset.$
+		
+			\item $V(a)=\supp (A/a).$
+		
+			\item If $0\to M'\to M\to M''\to 0$ is an exact sequence, then $\supp(M)=\supp(M')\cup \supp(M'').$
+		
+			\item If $M=\sum M_i,$ then $\supp(M)=\cup\supp(M_i).$
+		
+			\item If $M$ is finitely generated, then $\supp(M)=V(\ann_A(M))$(and is therefore a closed subset of $\spec A$).
+		
+			\item If $M$ and $N$ are finitely generated then $\supp (M\otimes_A N)=\supp(M)\cap \supp(N).$ [Use Chapter 2, Exercise 3.]
+		
+			\item If $M$ is finitely generated and $a$ is an ideal of $M$ then $\supp(M/aM)=V(a+\ann_A(M)).$
+		
+			\item If $f:A\to B$ is a ring homomorphism and $M$ is a finitely generated $A-$module, then $\supp(B\otimes_A M)=f^{*-1}(\supp(M)).$
+	
+		\end{enumerate}
+
+	\textit{Answer.}	\begin{enumerate}
+	
+		\item dfd	
+	
+	
+	
+	
+	\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+\section{Primary Decomposition}
+
+
+
+\section{Integral Dependence and Valuation}
+
+
+
+\section{Chain Condition}
+
+
+
+\section{Noetherian Rings}
+
+
+
+\section{Artin Rings}
+
+
+
+\section{Discrete Valuation rings and Dedekind Domain}
+
+
+
+\section{Completions}
+
+
+
+\section{Dimension Theory}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
