@@ -1,0 +1,1489 @@
+\documentclass[11pt]{amsart}
+\usepackage{amssymb}
+\usepackage{tikz-cd}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{cd,matrix,arrows,decorations.pathmorphing}
+\usepackage{mathtools}
+\usepackage{
+  %amsmath,
+  %amsthm,
+  amssymb,
+  euscript,
+  %enumerate,% better enumitem
+  url,
+  verbatim,
+  calc,
+}
+\usepackage{cancel}
+%\usepackage{mathtools}
+%\usepackage{extarrows}
+\textwidth6.5in
+\textheight9in
+\oddsidemargin.2in
+\evensidemargin.2in
+\topmargin-1cm
+\renewcommand{\baselinestretch}{1.2}
+\usepackage{amsmath}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}%[theorem]
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{qns}[theorem]{Question}
+\newtheorem*{qns*}{Question}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{ex}[theorem]{Exercise}
+\newtheorem{example}[theorem]{Example}%[section]
+\newtheorem{eg}[theorem]{Example}
+\newtheorem*{eg*}{Example}
+\newtheorem{obs}[theorem]{Observation}
+\newtheorem{obs*}{Observation}
+\newtheorem*{Obs*}{Observation}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{proposition}[theorem]{Proposition}%[section]
+\newtheorem{prop}[theorem]{Proposition}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{remark}[theorem]{Remark}%[section]
+\newtheorem*{remark*}{Remark}
+\newtheorem{corollary}[theorem]{Corollary}%[section]
+\newtheorem{lemma}[theorem]{Lemma}%[section]
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\NN}{\mathbb N}
+%\operatorname{deg}{{\deg}}
+\usepackage{wasysym, stackengine, makebox, graphicx}
+
+\newcommand\isom{\mathrel{\stackon[-0.1ex]{\makebox*{\scalebox{1.08}{\AC}}{=\hfill\llap{=}}}{{\AC}}}}
+\newcommand\nvisom{\rotatebox[origin=cc] {-90}{$ \isom $}}
+\newcommand\visom{\rotatebox[origin=cc] {90} {$ \isom $}}
+
+
+\newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\gen}[1]{\langle#1\rangle}
+\newcommand{\rk}[1]{\text{rank}~#1}
+\newcommand{\Homa}[1]{\text{Hom}_A\left(#1\right)}
+\newcommand{\Homb}[1]{\text{Hom}_B\left(#1\right)}
+\newcommand{\Hom}[1]{\text{Hom}_R\left(#1\right)}
+\newcommand{\Homs}[1]{\text{Hom}_S\left(#1\right)}
+\newcommand{\lcm}[1]{\text{lcm}(#1)}
+\newcommand{\cl}[1]{\text{cl}(#1)}
+\newcommand{\Span}[1]{\text{span~}\{#1\}}
+%\DeclareMathOperator{\Homm}{\text{Hom}_R( )}
+\DeclareMathOperator{\ann}{\text{Ann}}
+\DeclareMathOperator{\ass}{\text{Ass}}
+\DeclareMathOperator{\supp}{\text{Supp~}}
+\DeclareMathOperator{\im}{\text{Im}}
+\DeclareMathOperator{\Ker}{\text{Ker}}
+\DeclareMathOperator{\ch}{\text{char}}
+\DeclareMathOperator{\spec}{\text{spec}}
+\DeclareMathOperator{\mspec}{\text{maxspec}}
+\DeclareMathOperator{\aut}{\text{Aut}}
+\DeclareMathOperator{\id}{\text{id}}
+\title[]{Commutative Algebra}
+\author[]{Ripan Das}
+\begin{document}
+\maketitle
+\newpage 
+\tableofcontents
+\newpage
+
+\section{Rings and ideals}
+
+\subsection{Prime avoidance lemma}
+
+\begin{theorem}
+
+Let $P_1,\cdots ,P_n\in \operatorname{spec}R$ then $$I\subseteq \displaystyle\bigcup _{i=1}^n P_i \Rightarrow I\subseteq P_i~\text{for some $i$}.$$
+
+\end{theorem}
+
+\proof We have to prove that if $I\nsubseteq P_i,~\forall~1\leq i\leq n$ then $I\nsubseteq \displaystyle\bigcup_{i=1}^n P_i.$ We proceed by induction on $n.$ If $n=1$ then we are done. Suppose, the statement is true for $n-1$ ideals. We consider $P_2,\cdots ,P_n$ and we have $I\nsubseteq P_i,~2\leq i\leq n$ then by induction hypothesis $I\nsubseteq \displaystyle\bigcup_{i=2}^n P_i$ then $\exists x_i\in I$ such that $x\notin \displaystyle\bigcup_{i=2}^n P_i$ i.e., $x\notin P_i,~2\leq i\leq n.$ If $x_1\notin P_1$ then $x_1\notin \displaystyle\bigcup_{i=1}^n P_i$ and hence $I\nsubseteq \displaystyle\bigcup_{i=1}^n P_i$ and we are done. So we may assume $x_1\in P_1$ and $x_1\notin P_i,~2\leq i\leq n.$ Now we consider $\{P_1,P_2,\cdots ,P_n\}\setminus \{P_2\}$ and by similar approach we get $x_2\in I$ with $x_2\in P_2$ and $x_2\notin P_i,~\{1,\dots ,n\}\setminus \{2\}$ and lastly we get $x_n\in I$ with $x_n\in P_n$ and $x_n\notin P_1,~1\leq i\leq n-1.$ We consider $$x=x_2\cdots x_n+x_1x_3\cdots x_n+x_1x_2x_4\cdots x_n+\cdots +x_1\cdots x_{n-1}$$
+then $x\in I.$ We claim that $x\notin \displaystyle\bigcup_{i=1}^n P_i$ i.e., $x\notin P_1,~1\leq i\leq n.$ If $x\in P_i$ for some $i.$ Let $$y_i=x_1\cdots \widehat{x_i}\cdots x_n$$ then $x_i|y_j$ for $i \neq j \Rightarrow y_j\in P_i ~[x_i\in P_i] \Rightarrow  \displaystyle\sum_{\substack{j=1\\ j\neq i}}^n y_j\in P_i \Rightarrow x-\displaystyle\sum_{\substack{j=1\\ j\neq i}}^n y_j\in P_i ~[\because x\in P_i] \Rightarrow y_i\in P_i \Rightarrow x_1\cdots \widehat{x_i}\cdots x_n\in P_i$ but $x_j\notin P_i,~j\neq i$ [since $P_i$ is a prime ideal] $\Rightarrow x\notin \displaystyle\bigcup_{i=1}^n P_i.$ Hence, $I\nsubseteq .$ \qed
+
+\begin{remark}
+
+Prime avoidance lemma is not true for infinite number of prime ideals.
+
+\end{remark}
+
+\begin{example}
+
+Let $R=K[x_1,\cdots ,x_n,\cdots]$ (infinitely many variables). Let $I=(x_1,\cdots ,x_n,\cdots ),P_i=(x_1,\cdots ,x_i),i\in {\NN}$ then $R/P_i\cong K[x_{i+1},x_{i+2},\cdots ,]$ (integral domain) then $P_i\in spec~R.$ But $I\subseteq \displaystyle\bigcup_{i\in {\NN}} P_i$ and $I\subseteq P_i~\forall i\in {\NN}.$
+
+\end{example}
+
+\begin{theorem}[Prime avoidance lemma]
+
+Let $R$ be a commutative ring with 1, $I$ be an ideal of $R$ and $f\in R.$ Suppose $P_1,\cdots,P_r\in\spec R$ such that $f+I=\displaystyle\bigcup_{i=1}^r P_k$ then $\gen{f,I}\subseteq P_i$ for some $i\in\{1,\cdots,r\}.$
+
+\end{theorem}
+
+\proof Let $\displaystyle\sum$ be the collection of all $s\in{\NN}$ such that there exist $t\in R$ and an ideal $J$ of $R$ such that $t+J\subseteq \displaystyle\bigcup_{i=1}^s P_i$ but $\gen{t,J}\nsubseteq P_i,1\leq i\leq s.$ If $\displaystyle\sum\neq\emptyset$ then by well ordering principle of Natural numbers, $\displaystyle\sum$ has a least element say $l\in \displaystyle\sum.$ So there exist $g\in R$ and $\mathfrak{A}\subseteq R$ such that $g+\mathfrak{A}\subseteq \displaystyle\bigcup_{i=1}^l P_i$ but $\gen{g,\mathfrak{A}}\nsubseteq P_i,1\leq i\leq l.$ We note that $l\geq 2$ and $P_i\nsubseteq P_j.$ We claim that $g\in\displaystyle\bigcap_{i=1}^l P_i.$ If not, $g\notin P_{i_0}$ for some $i_0\in\{1,\cdots,l\}$, then $(g+P_{i_0}\mathfrak{A})\cap P_{i_0}=\emptyset$ hence $g+P_{i_0}\mathfrak{A}\subseteq \displaystyle\bigcup_{\substack{j=1\\j\neq i_0}}^l P_j.$ Since $l$ is the minimal element of $\displaystyle\sum$, we have $\gen{g,P_{i_0}\mathfrak{A}}\subseteq P_{j_0}$ for some $j_0\in\{1,\cdots, l\}$ but $j_0\neq i_0.$ Then $P_{i_0}\mathfrak{A}\subseteq P_{j_0} \Rightarrow P_{i_0}\subseteq P_{j_0}$ which is a contradiction (since if $\mathfrak{A}\subseteq P_{j_0}$ then $\gen{g,P_{j_0}\mathfrak{A}}\subseteq P_{j_0}$ implies $g\in P_{j_0} \Rightarrow \gen{g,\mathfrak{A}}\subseteq P_{j_0}$ but $\gen{g,\mathfrak{A}}\nsubseteq P_i$ for all $1\leq i\leq l$ so, $\mathfrak{A}\nsubseteq P_{j_0}$). Therefore, $g\in\displaystyle\bigcap_{i=1}^l P_i \Rightarrow \mathfrak{A}\subseteq \displaystyle\bigcup_{i=1}^l P_i\Rightarrow \mathfrak{A}\subseteq P_s$ for some $1\leq s\leq l.$ Then by our assumption $\gen{g,\mathfrak{A}}\subseteq P_s$ but $\displaystyle\sum\neq \emptyset$ which is a contradiction. Hence our assumption is not true that is $\displaystyle\sum=\emptyset.$ \qed
+
+\begin{prop}
+
+Let $I_1,\cdots, I_r$ be ideals of $R$ and $P\in\spec R$. If $\displaystyle\bigcap_{k=1}^r I_k\subseteq P$ then $I_k\subseteq P$ for some $k\in\{1,\cdots,r\}.$
+
+\end{prop}
+
+\proof Since $\displaystyle\prod_{k=1}^r I_k\subseteq \displaystyle\bigcap_{k=1}^r I_k\subseteq P,$ by definition of prime ideal $I_k\subseteq P$ for some $1\leq k\leq r.$ \qed
+
+\begin{theorem}[Module theoretic version]
+
+Let $R$ be a commutative ring with 1 and $P_1,\cdots, P_m\in\spec R$, $M$ be an $R-$module and $x_1,\cdots,x_n\in M.$ Consider the submodule $N=\gen{x_1,\cdots, x_n}$ of $M$. If $N_{P_j}\nsubseteq P_jM_{P_j},j=1,\cdots,m$ then there exist $a_2,\cdots,a_n\in R$ such that $x_1+\displaystyle\sum_{i=1}^n a_ix_i\notin P_jM_{P_j}.$
+
+\end{theorem}
+
+\proof
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Module}
+
+\subsection{Tensor Product}
+
+\begin{defn}
+
+Let $M_1,\cdots,M_k,N$ be $R-$modules. A map $f:M_1\times \cdots\times M_k\to N$ is said to be linear in ith variable if, given fixed $m_j,j\neq i$, the map $$T:M_i\to N$$ defined by $T(m)=f(m_1,\cdots,m_{i-1},m,m_{i+1},m_k)$ is linear. The map $f$ is said to be multilinear if it is linear in each variable.
+
+\end{defn}
+
+Let $M, N$ be two $R-$modules. Consider the free module $F$ generated by the $M\times N$ over $R$, then the elements of $F$ are of the form $\displaystyle\sum_{\substack{\text{finite}\\\text{sum}}} r_ix_i$ where $r_i\in R$ and $x_i\in M\times N.$ Let $D$ be the submodule of $F$ generated by the elements of the form \begin{align*}
+&(m_1+m_2,n)-(m_1,n)-(m_2,n)\\
+&(m,n_1+n_2)-(m,n_1)-(m,n_2)\\
+&(rm,n)-r(m,n)\\
+&(m,rn)-r(m,n)
+\end{align*}
+where $m,m_1,m_2\in M$, $n,n_1,n_2\in N$ and $r\in R.$ Let $T=F/D.$ We denote $T=M\otimes_R N$ and $T$ is said to be Tensor product of $M$ and $N$. We denote $(m,n)+D\in F/D$ by $m\otimes n$ and we have a map \begin{align*}
+M\times N&\stackrel{\pi}{\to} T\\
+(m,n)&\mapsto m\otimes n
+\end{align*}
+
+We will show that $\pi$ is bilinear map. $\pi((m_1+m_2,n))=(m_1+m_2,n)+D.$ Since $$(m_1+m_2,n)-(m_1,n)-(m_2,n)\in D$$
+$\pi((m_1+m_2,n))=(m_1+m_2,n)+D=(m_1,n)+D+(m_2,n)+D=\pi(m_1,n)+\pi(m_2,n)$ for all $m_1,m_2\in M$ and for all $n\in N$. Similarly we can show that $\theta$ satisfies the property of bilinear map.
+
+\begin{theorem}[Universal Property]
+
+For every bilinear map $\beta:M\times N\to P$ where $P$ is an $R-$ module, there exists an unique $R-$linear map $\tilde{\beta}:M\otimes_R N\to P$ such that the diagram commutes.
+
+\begin{center}
+
+\begin{tikzcd}
+M\times N \arrow[rr, "\beta"] \arrow[dd, "\pi"'] &  & P \\
+                                                 &  &   \\
+M\otimes_R N \arrow[rruu, "\tilde{\beta}"']      &  &  
+
+\end{tikzcd}
+
+\end{center}
+
+
+ More over, if $(T',\theta')$ be another pair with such property then there exists a module isomorphism $M\otimes_RN\to T'.$
+
+\end{theorem}
+
+\proof Define $\tilde{\beta}:M\otimes_RN\to P$ by $\tilde{\beta}(m\otimes n)=\beta(m,n)$ and extend it linearly. Let $m_1\otimes n_1=m_2\otimes n_2 \Rightarrow (m_1,n_1)-(m_2,n_2)\in D.$ Since 
+
+ 
+ By our construction $\tilde{\beta}$ is bilinear. Suppose $\gamma:M\otimes_RN\to P$ be another $R-$linear map such that the diagram commutes. Then $\gamma(m\otimes n)=\beta(m,n)=\tilde{\beta}\pi(m,n)=\tilde{\beta}(m\otimes n).$ Hence $\gamma=\tilde{\beta}.$
+ 
+Now we assume that there exists another pair $(T',\theta')$ with same property, then
+
+\begin{center}
+
+\begin{tikzcd}
+M\times N \arrow[rr, "\pi"] \arrow[dd, "\theta'"'] &  & M\otimes_R N &  &  & M\times N \arrow[dd, "\pi"'] \arrow[rr, "\theta'"] &  & T' \\
+                                                   &  &              &  &  &                                                    &  &    \\
+T' \arrow[rruu, "\tilde{\pi}"']                    &  &              &  &  & M\otimes_R N \arrow[rruu, "\tilde{\theta'}"']      &  &   
+
+\end{tikzcd}
+
+\end{center}
+
+where $\tilde{\pi}$ and $\tilde{\theta'}$ are $R-$ linear map. Since the diagrams commutes, we have $\tilde{\pi}\circ \theta'=\pi$ (from first diagram) and $\tilde{\theta'}\circ \pi=\theta'$ (from second diagram). Hence $(\tilde{\theta'}\circ \tilde{\pi})\circ \theta'=\theta'$ and $(\tilde{\pi}\circ\tilde{\theta'})\circ \pi=\pi.$ Again we consider the following diagrams 
+
+\begin{center}
+
+\begin{tikzcd}
+M\times N \arrow[rr, "\pi"] \arrow[dd, "\pi"']   &  & M\otimes_R N &  &  & M\times N \arrow[dd, "\theta'"'] \arrow[rr, "\theta'"] &  & T' \\
+                                                 &  &              &  &  &                                                        &  &    \\
+M\otimes_R N \arrow[rruu, "\id_{M\otimes_R N}"'] &  &              &  &  & T' \arrow[rruu, "\id_{T'}"']                           &  &   
+
+\end{tikzcd}
+
+\end{center}
+
+By Universal property, we have $\tilde{\theta'}\circ \tilde{\pi}=id_{T'}$ and $\tilde{\pi}\circ \tilde{\theta'}=\id_{M\otimes_R N}.$ \qed\\
+
+\textbf{Tensor product of algebras.} Let $A$ and $B$ be $R-$algebra, We consider the module $C=A\otimes_R B$. Let us define a mapping $\beta:A\times B\times A\times B\to C$ by $\beta(a,b,a',b')=aa'\otimes bb'.$ Since $\beta$ is multilinear, $\beta$ induce a mapping $\tilde{\beta}:C\otimes_R C\to C$. This $\tilde{\beta}$ corresponds a bilinear mapping $\gamma:C\times C\to C$ given by $\gamma(a\otimes b,a'\otimes b')=aa'\otimes bb'.$ Since $\gamma$ is well define, it defines a multiplication on $C$ and therefore $C$ becomes a commutative ring with unity, $1\otimes 1$ being the multiplicative identity. Since $A$ and $B$ are $R-$algebra, there exists $f:R\to A$ and $g:R\to B$ two ring morphisms. Now we define $\psi:R\to A\otimes_R B$ by $\psi(r)=f(r)\otimes g(r).$ Let $r_1,r_2\in R$ then $\psi(r_1+r_2)=f(r_1+r_2)\otimes g(r_1+r_2)=f(r_1)\otimes g(r_1+r_2)+f(r_2)\otimes g(r_1+r_2).$\\
+
+
+
+We note that $C$ is both $A$ and $B$ algebra as $\mu_A:A\to A\otimes_R B$ is defined by $\mu_A(a)=a\otimes 1_B$ and $\mu_B:B\to A\otimes_R B$ is defined by $\mu_B(b)=1_A\otimes b.$ It is easy to check that both $\mu_A$ and $\mu_B$ is a ring homomorphism.
+
+\begin{theorem}[Properties of Tensor product]
+
+Let $M,N,P$ and $\{M_i\}_{i\in\Lambda}$ be $R-$modules, $I\subseteq R$ be a ideal of $R,$ $S$ be a multiplicatively closed set in $R$ then we have
+\begin{enumerate}
+
+\item $M\otimes_R N\cong N\otimes_R M.$
+
+\item $(M\otimes_R N)\otimes_R P\cong M\otimes_R(N\otimes_R) P.$
+
+\item $M\otimes_R R\cong M.$
+
+\item $M\otimes_R R/I \cong M/IM.$
+
+\item $M\otimes_R S^{-1}R\cong S^{-1}M.$
+
+\item $\left(\displaystyle\bigoplus_{i\in\Lambda} M_i\right) \otimes_R N\cong \displaystyle\bigoplus_{i\in\Lambda} (M_i\otimes_R N).$
+
+\end{enumerate}
+
+\end{theorem}
+
+\proof \begin{enumerate}
+\item Consider the diagram 
+
+\begin{center}
+
+\begin{tikzcd}
+M\times N \arrow[rr, "\alpha", shift left] \arrow[dd, "\pi"'] &  & N\times M \arrow[dd, "\tilde{\pi}"] \arrow[ll, "\beta", shift left] \\
+                                                              &  &                                                             \\
+M\otimes_R N \arrow[rr, "\alpha'", shift left]                &  & N\otimes_R M \arrow[ll, "\beta'", shift left]              
+
+\end{tikzcd}
+
+\end{center}
+
+where $\alpha((m,n))=(n,m)$ and $\beta((n,m))=(m,n).$ We claim that $\tilde{\pi}\circ\alpha$ is bilinear. Let $(m_1+m_2,n)\in M\times N$, $\tilde{\pi}\alpha((m_1+m_2,n))=\tilde{\pi}(n,m_1+m_2)=n\otimes (m_1+m_2)=n\otimes m_1+n\otimes m_2=\tilde{\pi}\alpha((m_1,n))+\tilde{\pi}\alpha((m_2,n))$ for all $m_1,m_2\in M$ and for all $n\in N.$ Similarly other properties can be shown. By Universal property, we have a module morphism $\alpha':M\otimes_R N\to N\otimes_R M.$ Similarly the map $\beta\circ \pi$ is also bilinear so we have a $R-$ linear map $\beta':N\otimes_R M\to M\otimes_R M.$ We just need to show that $\alpha'\circ \beta=\id_{N\otimes_R M}$ and $\beta'\circ \alpha'=\id_{M\otimes_R N}$ which is easy, $\alpha'\circ \beta'(n\otimes m)=\alpha'(m\otimes n)=n\otimes n$ and $\beta'\circ \alpha'(m\otimes n)=\beta'(n\otimes m)=m\otimes n.$
+
+\item 
+
+\item Let $f:M\times R\to M$ be the map where $f(m,r)=rm.$ Since $M$ is an $R-$module, $f$ is bilinear, hence $f$ induce a map $\tilde{f}:M\otimes_R R\to R$ such that the diagram commutes
+
+\begin{center}
+\begin{tikzcd}
+M\times R \arrow[rr, "f"] \arrow[dd, "\pi"'] &  & M \\
+                                             &  &   \\
+M\otimes_R R \arrow[rruu, "\tilde{f}"']      &  &  
+\end{tikzcd}
+\end{center}
+
+where $\tilde{f}\circ \pi=f \Rightarrow f(m,r)=\tilde{f}\pi(m,r) \Rightarrow rm=\tilde{f}(m\otimes r)$ and $\tilde{f}$ is $R-$linear. Let $g:M\to M\otimes_R R$ defined as $g(m)=m\otimes 1.$ It is easy to show that $g$ is $R-$linear and $\tilde{f}\circ g=\id_{M}$ and $g\circ \tilde{f}=\id_{M\otimes_R R}.$
+
+\item Let $f:M\times R/I\to M/IM$ be the bilinear map defined by $f(m,r+I)=rm+IM.$ By Universal property there exists a well define module morphism $\tilde{f}:M\otimes_R R/I\to M/IM$ such that the diagram commutes, 
+
+\begin{center}
+\begin{tikzcd}
+M\times R/I \arrow[rr, "f"] \arrow[dd, "\pi"'] &  & M/IM \\
+                                             &  &   \\
+M\otimes_R R/I \arrow[rruu, "\tilde{f}"']      &  &  
+\end{tikzcd}
+\end{center}
+
+where $\tilde{f}(m\otimes (r+I))=rm+IM.$ Let $g:M/IM\to M\otimes_R R/I$ be the map $g(m+IM)=m\otimes (1+I)$. Then $g$ is an $R-$linear map and $g\circ \tilde{f}=\id_{M\otimes_R R/I}$ and $\tilde{f}\circ g=\id_{M/IM}.$
+
+\item Consider \begin{center}
+\begin{tikzcd}
+M\times S^{-1}R \arrow[rr, "f"] \arrow[dd, "\pi"'] &  & S^{-1}M \\
+                                             &  &   \\
+M\otimes_R S^{-1}R \arrow[rruu, "\tilde{f}"']      &  &  
+\end{tikzcd}
+\end{center}
+
+where $f\left(m,\dfrac{r}{s}\right)=rm/s.$ First we need to check $f$is well defined. Let $\dfrac{r_1}{s_1}=\dfrac{r_2}{s_2}$ then there exists some $s\in S$ such that $s(r_1s_2-s_1r_2)=0 \Rightarrow s(r_1s_2-s_1r_2)m=0\Rightarrow s(r_1s_2m-s_1r_2m)=0 \Rightarrow \dfrac{r_1m}{s_1}=\dfrac{r_2m}{s_2}.$ It is obvious that $f$ is bilinear. Then there exits a unique module morphism $\tilde{f}:M\otimes_R S^{-1}R \to S^{-1}M$ where $\tilde{f}\left(m\otimes \dfrac{r}{s}\right)=\dfrac{rm}{s}.$ Define $g:S^{-1}M\to M\times S^{-1}R$ by $g\left(\dfrac{m}{s}\right)=m\times \dfrac{1}{s}.$ $g$ is well defined module morphism and $g=\tilde{f}^{-1}.$
+
+\item Let $\theta_i:M_i\to \displaystyle\bigoplus_{i\in\Lambda} M_i$ be the inclusion map. Define \begin{align*}
+f:\left(\displaystyle\bigoplus_{i\in\Lambda} M_i\right)\times N&\to \displaystyle\bigoplus_{i\in\Lambda} (M_i\otimes_R N)\\
+((m_i)_{i\in\Lambda},n)&\mapsto (m_i\otimes n)_{i\in\Lambda}.
+\end{align*}
+We will show that $f$ is bilinear. $f((m_i)_{i\in\Lambda}+(m'_i)_{i\in\Lambda},n)=f((m_i+m'_i)_{i\in\Lambda},n)=((m_i+m'_i)\otimes n)_{i\in\Lambda}=(m_i\otimes n)_{i\in\Lambda}+(m'_i\otimes n)_{i\times \Lambda}=f((m_i)_{i\in\Lambda},n)+f((m'_i)_{i\in\Lambda},n).$ Similarly other properties can be shown. Hence we have a map $\tilde{f}:\left(\displaystyle\bigoplus_{i\in\Lambda} M_i\right)\otimes_R N\to \displaystyle\bigoplus_{i\in\Lambda} (M_i\otimes_R N)$ defined by $\tilde{f}((m_i)_{i\in\Lambda}\otimes n)=(m_i\otimes n)_{i\in\Lambda}.$ Define $g: \displaystyle\bigoplus_{i\in\Lambda} (M_i\otimes_R N)\to \left(\displaystyle\bigoplus_{i\in\Lambda} M_i\right)\otimes_R N$ by $g((m_i\otimes n_i)_{i\in\Lambda})=\displaystyle\sum_{i\in\Lambda}(\theta_i(m_i)\otimes n_i)$. Note that $g$ is $R-$linear. Now, $g\circ\tilde{f}((m_i)_{i\in\Lambda}\otimes n)=g((m_i\otimes n)_{i\in\Lambda})=\displaystyle\sum_{i\in\Lambda} (\theta_i(m_i)\otimes n)=\left(\displaystyle\sum_{i\in\Lambda} \theta_i(m_i)\right)\otimes n=(m_i)_{i\in\Lambda}\otimes n\Rightarrow g\circ \tilde{f}=\id_{\left(\displaystyle\bigoplus_{i\in\Lambda} M_i\right)\otimes_R N}.$ Let $(m_i\otimes n_i)_{i\in\Lambda}\in \displaystyle\bigoplus_{i\in\Lambda} (M_i\otimes_R N),$ then $\tilde{f}\circ g((m_i\otimes n_i)_{i\in\Lambda})=\tilde{f}\left(\displaystyle\sum_{i\in\Lambda}(\theta_i(m_i)\otimes n_i)\right)=\displaystyle\sum_{i\in\Lambda}\tilde{f}(\theta_i(m_i)\otimes n_i)=\displaystyle\sum_{i\in\Lambda}=\theta_i(m_i)\otimes n_i=(m_i\otimes n_i)_{i\in\Lambda} \Rightarrow \tilde{f}\circ g=\id_{\displaystyle\bigoplus_{i\in\Lambda} (M_i\otimes_R N)}.$
+
+\end{enumerate}
+\qed
+
+\begin{remark}
+Let $f:A\to B$ be a ring homomorphism. Suppose $M$ is an $A-$module and $N$ is an $B-$module. Then $M\otimes_A N$ has both $A$ and $B$ module structure, \begin{align*}
+ B\times M\otimes_A N&\to M\otimes_A N\\
+ (n,m\otimes n)&\mapsto m\otimes bm
+\end{align*}
+\end{remark}
+
+\begin{theorem}
+Let $B$ be an $A$ algebra, $M$ be an $A-$module and $N,P$ be $B-$modules. Then $$(M\otimes_A N)\otimes_B P\cong M\otimes_A(N\otimes_B P).$$
+\end{theorem}
+
+\proof It is suffices to establish the isomorphism as $B-$module.
+
+\qed
+
+\begin{theorem}[Hom-Tensor adjunction]
+Let $M,N,P$ be $R-$modules. Then $$\Hom{M\otimes_RN,P}\cong \Hom{M,\Hom{N,P}}.$$
+\end{theorem}
+
+\proof Define \begin{align*}
+\psi:\Hom{M\otimes_RN,P}&\to \Hom{M,\Hom{N,P}}\\
+f&\mapsto \psi(f)
+\end{align*}
+where $\psi(f)(m)(n)=f(m\otimes n)$ and \begin{align*}
+\phi:\Hom{M,\Hom{N,P}}&\to \Hom{M\otimes_RN,P}\\
+g&\mapsto \phi(g)
+\end{align*}
+where $\phi(g)(m\otimes n)=g(m)(n).$ We shall now show that $\phi(g)$ is well defined. Consider the diagram 
+
+\begin{center}
+\begin{tikzcd}
+M\times N \arrow[rr, "f"] \arrow[dd, "\pi"'] &  & P \\
+                                             &  &   \\
+M\otimes_R N \arrow[rruu, "\tilde{f}"']      &  &  
+\end{tikzcd}
+\end{center}
+
+where $f(m,n)=g(m)(n)$. We claim that $f$ is bilinear. $f(m_1+m_2,n)=g(m_1+m_2)(n)=g(m_1)(n)+g(m_2)(n)=f(m_1,n)+f(m_2,n)$ for all $m_1,m_2\in M$ and for all $n\in N.$ Now $f(m,n_1+n_2)=g(m)(n_1+n_2)=g(m)(n_1)+g(m)(n_2)=f(m,n_1)+f(m,n_2)$ for all $m\in M$ and for all $n_1,n_2\in N.$ Pick $r\in R,m\in M$ and $n\in N$, $f(rm,n)=g(rm)(n)=rg(m)(n)=rf(m,n)$ and $f(m,rn)=g(m)(rn)=rg(m)(n)=rf(m,n).$ By Universal property $\tilde{f}$ is well defined map such that $\tilde{f}\circ \pi=f$ and $\tilde{f}=\phi(g).$ Now it is easy to show that $\phi\circ \psi=\id_{\Hom{M\otimes_RN,P}}$ and $\psi\circ \phi=\id_{\Hom{M,\Hom{N,P}}}.$ \qed
+
+\begin{theorem}
+
+Let $B$ be an $A$ algebra, $M$ be an $A-$module and $N,P$ be $B$ modules. Then $$\Homb{M\otimes_A N,P}\cong \Homa{M,\Homb{N,P}}.$$
+
+\end{theorem}
+
+\proof Note that $\Homa{M,\Homb{N,P}}$ is an $B-$module, \begin{align*}
+B\times \Homa{M,\Homb{N,P}}&\to \Homa{M,\Homb{N,P}}\\
+(b,f)&\mapsto (bf)
+\end{align*}
+where $(bf):M\to \Homb{N,P}$ is defined by $(bf)(m):=b\cdot(f(m)).$
+
+Now, we define $$\theta:\Homa{M,\Homb{N,P}}\to \Homb{M\otimes_A N,P}$$ where $\theta(f)(m\otimes n)=f(m)(n).$ We will show that $\theta(f)$ is well defined. 
+
+\begin{center}
+
+\begin{tikzcd}
+M\times N \arrow[rr, "\alpha"] \arrow[dd, "\pi"'] &  & P \\
+                                             &  &   \\
+M\otimes_R N \arrow[rruu, "\tilde{\alpha}"']      &  &  
+
+\end{tikzcd}
+
+\end{center}
+
+Where $\alpha(m,n)=f(m)(n).$ We claim that $\alpha$ is $A-$linear in first component and $B-$linear in second component. Let $m_1,m_2\in  M$ and $m\in N,$ $\alpha(m_1+m_2,n)=f(m_1+m_2)(n)=f(m_1)(n)+f(m_2)(n)=\alpha(m_1,n)+\alpha(m_2,n).$ Let $m\in M, n_1,n_2\in N$ then $\alpha(m,n_1+n_2)=f(m)(n_1+n_2)=f(m)(n_1)+f(m)(n_2)=\alpha(m,n_1)+\alpha(m,n_2).$ Now, for all $a\in A,m\in M,n\in N$, $\alpha(am,n)=f(am,n)=af(m)(n)=a\alpha(m,n)$ and for all $b\in B, m\in M,n\in N,$ $\alpha(m,bn)=f(m)(bn)=bf(m)(n)=b\alpha(m,n)$. Hence $\alpha$ is $A-$linear in first component and $B-$linear in second component. Hence $\theta(f)$ is a well defined $B-$linear map. Let \begin{align*}
+\psi:\Homb{M\otimes_A N,P}&\to \Homa{M,\Homb{N,P}}\\
+g&\mapsto \psi(g)
+\end{align*}
+where $\psi(g):M\to \Homb{N,P}$ is the map $\psi(g)(m)(n)=g(m\otimes n).$ It is easy to show that $\psi$ is a $B-$linear map and $\psi\circ \theta=\id_{\Homa{M,\Homb{N,P}}}$ and $\theta\circ \psi=\id_{\Homb{M\otimes_A N,P}}.$ \qed
+
+\begin{corollary}
+
+Let \begin{equation}
+0\to M'\to M\to M''\to 0
+\end{equation} 
+be an exact sequence of $R-$modules. Let $N$ be another $R-$module then the sequence 
+\begin{equation}
+M'\otimes_R N\to M\otimes_R N\to M''\otimes_R N\to 0
+\end{equation} 
+is exact.
+
+\end{corollary}
+
+\proof Let $P$ be any $R-$module. Since (11) is exact, the sequence \begin{equation}
+\Hom{M'',\Hom{N,P}}\to \Hom{M,\Hom{N,P}}\to \Hom{M',\Hom{N,P}}\to 0
+\end{equation}
+is exact and by Theorem 14.53 we have $$\Hom{M''\otimes_R N,P}\to \Hom{M\otimes_R N,P}\to \Hom{M'\otimes_R N,P}\to 0$$ is exact. Hence we have (12). \qed
+
+\subsubsection{Flat module}
+
+\begin{defn}
+
+A module $N$ is said to be flat $R-$module if for every short exact sequence of $R-$modules $$0\to M'\to M\to M''\to 0$$ we have the following short exact sequence $$0\to M'\otimes_R N\to M\otimes_R N\to M''\otimes_R N\to 0.$$
+
+\end{defn}
+
+\begin{remark}
+\begin{enumerate}
+
+\item An $R$-mdoule $N$ is said to be flat if and only if for every short exact sequence $$0\to M'\to M\to M''\to 0$$ of $R-$modules, we have the following exact sequence $$0\to M'\otimes_R N\to M\otimes_R N.$$
+
+\item An $R-$module $N$ is said to be flat if for every exact sequence $$\sum\equiv \cdots\to M_i\to M_{i+1}\to M_{i+2}\to\cdots$$ of $R-$modules, we have the following exact sequence $$\sum\otimes_R N\equiv \cdots\to M_i\otimes_R N\to M_{i+1}\otimes_R N\to M_{i+2}\otimes_R N\to\cdots.$$
+
+\end{enumerate}
+
+\end{remark}
+
+\begin{defn}
+
+An $R-$module $N$ is said to be faithfully flat module if it is a flat module and any sequence of $$\sum\equiv \cdots\to M_i\to M_{i+1}\to M_{i+2}\to\cdots$$ of $R-$modules, $\displaystyle\sum\otimes_R N$ is exact implies $\displaystyle\sum$ is an exact sequence.
+
+\end{defn}
+
+\begin{defn}
+
+Let $S$ be an $R-$algebra. $S$ is said to be flat over $R$ if $S$ is a flat $R-$module.
+
+\end{defn}
+
+\begin{eg}
+
+Let $S$ be a multiplicatively closed set of a ring $R$ then $S^{-1}R$ is a flat $R-$module.
+
+\end{eg}
+
+\begin{qns}
+
+Let $I$ be an ideal of $R$. Is $R/I$ flat?
+
+\end{qns}
+
+\begin{lemma}
+
+Let $M,N$ be flat $R-$modules then $M\otimes_R N$ and $M\oplus N$ is also flat.
+
+\end{lemma}
+
+\proof \begin{enumerate}
+\item Let $$0\to M_1\to M_2\to M_3\to 0$$ be an exact sequence of $R-$modules, since $M$ is flat, the following sequence $$0\to M_1\otimes_R M\to M_2\otimes_R M\to M_3\otimes_R M\to 0$$ is exact and so the sequence $$0\to (M_1\otimes_R M)\otimes_R N\to (M_2\otimes_R M)\otimes_R N\to (M_3\otimes_R M)\otimes_R N\to 0.$$ Hence $$0\to M_1\otimes_R (M\otimes_R N)\to M_2\otimes_R (M\otimes_R N)\to M_3\otimes_R (M\otimes_R N)\to 0$$ is exact. Therefore, $M\otimes_R N$ is flat.\\
+
+\item Since $M$ and $N$ are flat the sequences $$0\to M_1\otimes_R M\xrightarrow{\alpha_M} M_2\otimes_R M\xrightarrow{\beta_M} M_3\otimes_R M\to 0$$ and $$0\to M_1\otimes_R N\xrightarrow{\alpha_N} M_2\otimes_R N\xrightarrow{\beta_N} M_3\otimes_R N\to 0$$ are exact. Therefore the sequence $$0\to M_1\otimes_R M\oplus M_1\otimes N\xrightarrow{(\alpha_M,\alpha_N)} M_2\otimes_R M\oplus M_2\otimes N\xrightarrow{(\beta_M,\beta_N)} M_3\otimes_R M\oplus M_3\otimes N\to 0$$ is exact. So we have the following exact sequence, $$0\to M_1\otimes_R (M\oplus N)\to M_2\otimes_R (M\oplus N)\to M_3\otimes_R (M\oplus N)\to 0.$$
+Hence $M\oplus N$ is a flat $R-$module.
+\end{enumerate}
+\qed
+
+\begin{remark}
+Let $S$ be a flat $R-$ algebra and $N$ be a flat $S-$module. Then $N$ is a flat $R-$module.
+\end{remark}
+
+\proof Let $$0\to M_1\to M_2\to M_3\to 0$$ be an exact sequence of $R-$modules. Since $S$ is flat $R-$module, $$0\to M_1\otimes_R S\to M_2\otimes_R S\to M_3\otimes_R S\to 0$$ is an exact sequence of $R-$module. Since $S$ is an $R-$algebra, each $M_i\otimes_R S,1\leq i\leq 3$ also has $S-$module structure. So the above sequence is an exact sequence of $S-$module. Since $N$ is flat $S-$module, $$0\to (M_1\otimes_R S)\otimes_S N\to (M_2\otimes_R S)\otimes_S N\to (M_3\otimes_R S)\otimes_S N\to 0$$ is exact and so the sequences are 
+
+\begin{center}
+\begin{tikzcd}
+ 0\ar[r] & M_1\otimes_R (S\otimes_S N) \ar[r] & M_2\otimes_R (S\otimes_S N) \ar[r] & M_3\otimes_R (S\otimes_S N) \ar[r]&  0 \\
+0\ar[r]  & M_1\otimes_R N \ar[u, phantom, "\nvisom"] \ar[r]& M_2\otimes_R N \ar[u,phantom, "\nvisom"]\ar[r]  & M_3\otimes_R N \ar[u, phantom, "\nvisom"] \ar[r]& 0
+\end{tikzcd}
+\end{center}
+ 
+therefore, $N$ is a flat $R-$module. \qed
+
+\begin{theorem}
+Let $M$ and $N$ be two $S^{-1}R$ modules, then $M$, $N$ are also $R-$modules via $\psi:R\to S^{-1}R$. Then $M\otimes_{S^{-1}R} N\cong M\otimes_R N.$
+\end{theorem}
+
+\proof We note that $M\otimes_R N$ is an $S^{-1}R-$module. We will show that $M\otimes_R N$ and $M\otimes_{S^{-1}R} N$ is same as $S^{-1}R-$module, hence they are same as $R-$module also. In $M\otimes_R N$, $$\dfrac{a}{s}(m\otimes n)=\dfrac{am}{s}\otimes n=\dfrac{am}{s}\otimes \dfrac{ns}{s}=\dfrac{sm}{s}\otimes \dfrac{an}{s}=m\otimes \dfrac{an}{s}.$$ Thus $\dfrac{a}{s}m\otimes n=m\otimes \dfrac{an}{s}$ in $M\otimes_R N$. So they are same as $S^{-1}R-$module. \qed
+
+\begin{theorem}
+Let $S$ be an $R-$algebra and $M$ be an $S-$module. A necessary and sufficient condition for $M$ to be flat over $R$ is that for every $p\in \spec S,$ $M_p$ is flat $R_q-$module where $q=p\cap R.$
+\end{theorem}
+
+\proof First we note that $M_p$ is an $R_q$ module. As $S$ is an $R-$algebra, there exists $f:R\to S$ and $f(p)\subseteq q$ then by Universal property of localization there exists an unique morphism $f_p:R_q\to S_p$ to make $S_p$ an $R_q-$algebra. Now $S_p\otimes_S M\cong M_p$. Thus $M_p$ is an $S_p-$module hence $M_p$ is an $A_q-$module. Suppose $M$ is flat. Consider the exact sequence of $R_q-$modules (also as $R-$modules) \begin{equation}
+0\to M_1\to M_2\to M_3\to 0
+\end{equation}
+
+By previous theorem, \begin{equation}
+M_p\otimes_{R_q} M_i\cong M_p\otimes_R M_i,1\leq i\leq 3.
+\end{equation} 
+Now From (14) $$0\to M_1\otimes_R M\to M_2\otimes_R M\to M_3\otimes_R M\to 0$$ is an exact sequence of $S-$mdoule (since $M$ is an $S-$module). As $S_p$ is flat over $S$ we have the following exact sequences 
+
+\begin{center}
+\begin{tikzcd}
+ 0\ar[r] & (M_1\otimes_R M)\otimes_S S_p \ar[r] & (M_2\otimes_R M)\otimes_S S_p \ar[r] & (M_3\otimes_R M)\otimes_S S_p \ar[r]&  0 \\
+0\ar[r]  & M_1\otimes_R (M\otimes_S S_p) \ar[u, phantom, "\nvisom"] \ar[r]& M_2\otimes_R (M\otimes_S S_p) \ar[u,phantom, "\nvisom"]\ar[r]  & M_3\otimes_R (M\otimes_S S_p) \ar[u, phantom, "\nvisom"] \ar[r]& 0\\
+0\ar[r]  & M_1\otimes_R M_p \ar[u, phantom, "\nvisom"] \ar[r]& M_2\otimes_R M_p \ar[u,phantom, "\nvisom"]\ar[r]  & M_3\otimes_R M_p \ar[u, phantom, "\nvisom"] \ar[r]& 0
+\end{tikzcd}
+\end{center}
+
+From (15) we have the following exact sequence $$0\to M_1\otimes_{R_q} M_p\to M_2\otimes_{R_q} M_p\to M_3\otimes_{R_q} M_p\to 0.$$ Thus $M_p$ is a flat $R_q$ module.
+
+ Conversely, let $M_p$ be flat over $R_q$ for all $p\in \spec S$ and $q=p\cap R.$ Consider the exact sequence of $R-$modules $0\to N'\xrightarrow{\phi} N$ then $$0\to\Ker(\phi\otimes 1)\xrightarrow{i}N'\otimes_R M\xrightarrow{\phi\otimes 1} N\otimes_R M$$ where $\Ker(\phi\otimes 1), N'\otimes_R M$ and $N\otimes_R M$ are $S-$modules and $S_p$ is flat over $S$. Thus we have the exact sequence 
+ 
+ \begin{center}
+\begin{tikzcd}
+ 0\ar[r] & (\Ker(\phi\otimes 1))\otimes_S S_p \ar[r] & (N'\otimes_R M)\otimes_S S_p \ar[r] & (N\otimes_R M)\otimes_S S_p~\text{is exact} \\
+
+0\ar[r]  & (\Ker(\phi\otimes 1))_p \ar[u, phantom, "\nvisom"] \ar[r]& N'\otimes_R (M\otimes_S S_p) \ar[u,phantom, "\nvisom"]\ar[r]  & N\otimes_R (M\otimes_S S_p) \ar[u, phantom, "\nvisom"]~\text{is exact}\\
+
+0\ar[r]  & (\Ker(\phi\otimes 1))_p \ar[u, phantom, "\nvisom"] \ar[r]& N'\otimes_R M_p \ar[u,phantom, "\nvisom"]\ar[r]  & N\otimes_R M_p \ar[u, phantom, "\nvisom"]~\text{is exact}\\
+
+0\ar[r]  & (\Ker(\phi\otimes 1))_p \ar[u, phantom, "\nvisom"] \ar[r]& N'\otimes_R (R_q\otimes_{R_q} M_p) \ar[u,phantom, "\nvisom"]\ar[r]  & N\otimes_R(R_q\otimes_{R_q} M_p) \ar[u, phantom, "\nvisom"]~\text{is exact}\\
+
+0\ar[r]  & (\Ker(\phi\otimes 1))_p \ar[u, phantom, "\nvisom"] \ar[r]& (N'\otimes_R R_q)\otimes_{R_q} M_p \ar[u,phantom, "\nvisom"]\ar[r]  & (N\otimes_R R_q)\otimes_{R_q} M_p \ar[u, phantom, "\nvisom"]~\text{is exact}\\
+
+0\ar[r]  & (\Ker(\phi\otimes 1))_p \ar[u, phantom, "\nvisom"] \ar[r]& N'_q\otimes_{R_q} M_p \ar[u,phantom, "\nvisom"]\ar[r]  & N_q\otimes_{R_q} M_p \ar[u, phantom, "\nvisom"]~\text{is exact}\\
+\end{tikzcd}
+ \end{center}
+
+Again we have the exact sequence $0\to N_q\to N_q$, since $R_q$ is flat over $R$. As $M_p$ is flat over $R_q$, the following sequence $$0\to N'_q\otimes_{R_q} M_p\to N_q\otimes_{R_q} M_p$$ 
+is exact. Therefore, $(\Ker(\phi\otimes 1))_p=0$ for all $p\in \spec S$. By Local-global property, $\Ker(\phi\otimes 1)=0$. So the sequence $0\to N'\otimes_R M\to N\otimes_R M$ is exact. \qed
+
+\begin{lemma}
+Let $M$ be an $R-$module. For $p\in \mspec R,$ we have the map $\theta_p:M\to M_p$ given by $m\mapsto \dfrac{m}{1}.$ Let $x\in M$ such that $\theta_p(x)=0$ for all $p\in\mspec R$ then $x=0.$
+\end{lemma}
+
+\proof Let $x\neq 0$ then $\operatorname{Ann}_R(x)\neq R$ so there exists $m\in \mspec R$ such that $\operatorname{Ann}_R (x)\subseteq m.$ Consider the map $\theta_m:M\to M_m$. Since $\theta_m(x)=0 \Rightarrow \dfrac{x}{1}=\dfrac{0}{1}\Rightarrow u(x\cdot 1-0\cdot 1)=0 \Rightarrow ux=0 \Rightarrow u\in \operatorname{Ann}_R(x)$ which is a contradiction. Hence $x=0.$ \qed
+
+\begin{theorem}[Local-global property]
+
+Let $M$ be an $R-$module. Then the followings are equivalent:
+
+\begin{enumerate}
+
+\item $M=0.$
+
+\item $M_p=0$ for all $p\in\spec R.$
+
+\item $M_m=0$ for all $m\in\mspec R.$
+
+\end{enumerate}
+
+\end{theorem}
+
+\proof $(3)\Rightarrow (1)$ \qed
+
+
+\begin{lemma}
+
+Let $N\subseteq M$ be an $R-$module and $P$ be a flat $R-$module. Then $\dfrac{M\otimes_R P}{N\otimes_R P}\cong M/N\otimes_R P.$
+
+\end{lemma}
+
+\proof Consider the exact sequence $0\to N\to M\to M/N\to 0$. Since $P$ is flat, the resulting sequence $$0\to N\otimes_R P\to M\otimes_R P\to M/N\otimes_R P\to 0$$ is exact. \qed
+
+\begin{corollary}
+
+Let $M,N$ be $R-$modules and $f\in\Hom{M,N}.$ Then the followings are equivalent. 
+
+\begin{enumerate}
+
+\item $f$ is injective (surjective).
+
+\item $f_p$ is injective (surjective) for all $p\in\spec R.$
+
+\item $f_m$ is injective (surjective) for all $m\in\mspec R.$
+
+\end{enumerate}
+
+\end{corollary}
+
+\proof 
+
+\qed
+
+\subsection{Projective module}
+
+\begin{theorem}
+
+Let $P$ be an $R-$module. Then the followings are equivalent:
+
+\begin{enumerate}
+
+\item $\Hom{P,-}$ is an exact functor that is given any exact sequence of $R-$modules, $$0\to M'\to M\to M''\to 0$$ the sequence \begin{equation}
+0\to \Hom{P,M'}\to \Hom{P,M}\to \Hom{P,M''}\to 0
+\end{equation} is exact.
+
+\item  Given \begin{center}
+
+\begin{tikzcd}
+            & P \arrow[d,"\psi"]   &   \\
+M \arrow[r,"g"] & M'' \arrow[r] & 0
+\end{tikzcd}
+
+\end{center}
+we have $\phi:P\to M$ such that the diagram commutes that is $g\circ \phi=\psi.$
+ \begin{center}
+ \begin{tikzcd}
+                 & P \arrow[d, "\psi"] \arrow[ld, "\phi"'] &   \\
+M \arrow[r, "g"] & M'' \arrow[r]                           & 0
+\end{tikzcd}
+ \end{center}
+
+\item There exist an $R-$module $Q$ such that $P\oplus Q$ is free.
+
+\item For any epimorphism $f:M\to P$, there exists $s:P\to M$ such that $f\circ s=\id_P.$  
+ 
+\end{enumerate}
+
+\end{theorem}
+
+\proof $(1)\Rightarrow (2)$ Since (16) is exact $g_*(\alpha)=\beta \Rightarrow g\circ \alpha=\beta$. Take $\alpha=\phi$ and $\beta=\psi.$
+
+$(2)\Rightarrow (1)$ We just need to show that $g_*$ is surjective. Let $\gamma\in \Hom{P,M''}$. By (2) there exists $\phi\in \Hom{P,M}$ such that $g\circ \phi=\gamma\Rightarrow g_*(\phi)=\gamma.$
+
+$(2)\Rightarrow (3)$ Given $P$, there exists a free module $F$ and a surjective map $f:F\to P.$
+
+\begin{center}
+
+\begin{tikzcd}
+            &                  &                  & P \arrow[d, "\id"] \arrow[ld, "g"'] &   \\
+0 \arrow[r] & \Ker f \arrow[r] & F \arrow[r, "f"] & P \arrow[r]                         & 0
+\end{tikzcd}
+
+\end{center}
+
+Since $f\circ g=\id_P$ the above sequence is split exact. Hence $F=P\oplus \Ker f$. So $Q=\Ker f$ is the desired module.
+
+$(3) \Rightarrow (2)$ Consider the diagram 
+
+\begin{center}
+
+\begin{tikzcd}
+                 & F \arrow[d, "\pi"] \arrow[ldd, "\tilde{\alpha}"'] &   \\
+                 & P \arrow[d, "\psi"]                               &   \\
+M \arrow[r, "g"] & M'' \arrow[r]                                     & 0
+\end{tikzcd}
+
+\end{center}
+
+Let $S\subseteq F$ be a basis, define $\alpha:S\to M$ given by $\alpha(x)=\tau_x$ where $\tau_x\in g^{-1}(\psi\circ (x))$ is a fixed element. Then there exists $\tilde{\alpha}:F\to M$ such that $\tilde{\alpha}\circ g=\psi\circ \pi.$ Then $\tilde{\alpha}|_P:P\to M$ is the required map.
+
+$(2)\Rightarrow (4)$ Obvious.
+
+$(4)\Rightarrow (3)$ Given $P$, there exists a free module $F$ and $f:F\to P$ is a surjection. Then there is also a map $s:P\to F$ such that $f\circ s=\id_P.$ Since the following sequence $$0\to\Ker f\to F\to P\to 0$$ is split exact, $F\cong P\oplus \Ker f.$ \qed
+
+\begin{defn}
+Any $R-$module $P$ which satisfies any one of the above condition is called projective module.
+\end{defn}
+
+\begin{remark}
+Any free module $F$ is projective since $F=F\oplus 0.$ But converse is not true. Let $R={\ZZ}/6{\ZZ}$ and $P={\ZZ}/3{\ZZ}.$ Note that $P$ is an $R-$module, take $Q={\ZZ}/2{\ZZ}$. Then $P\oplus Q=R$ hence $P$ is a projective module over $R$ but $P$ is not free. If $P$ is free $R$ module then ${\ZZ}/3{\ZZ}\cong ({\ZZ}/6{\ZZ})^{|S|}$ where $S$ is a basis of $P$. Therefore $3=|{\ZZ}/3{\ZZ}|=|S||{\ZZ}/6{\ZZ}|=6|S|$ which is impossible.
+\end{remark}
+
+\begin{note}
+Therefore we have the following implication 
+\begin{center}
+\begin{tikzcd}
+\text{Free} \arrow[r, Rightarrow] & \text{Projective} \arrow[r, Rightarrow] & \text{Flat}
+\end{tikzcd}
+\end{center}
+but the reverse implications are not true. Let $F$ be a free module, then $F\cong \displaystyle\bigoplus_{i\in\Lambda} R_i$ where $R_i=R$ for all $i\in\Lambda$ and \begin{equation}
+0\to M'\to M\to M''\to 0
+\end{equation}
+be an exact sequence of $R-$modules. Then we have $$0\to M'\otimes_R R_i\to M\otimes_R R_i\to M''\otimes_R R_i\to 0$$ is an exact sequence of $R-$modules for all $i\in\Lambda.$ Hence $$0\to \bigoplus_{i\in\Lambda} (M'\otimes_R R_i)\to \bigoplus_{i\in\Lambda} (M\otimes_R R_i)\to \bigoplus_{i\in\Lambda} (M''\otimes_R R_i)\to 0$$ is exact. Therefore $$0\to M'\otimes_R F\to M\otimes_R F\to M''\otimes_R F\to 0$$ is exact that is $F$ is a flat module. Now let $P$ be a projective module then there exist an $R-$module $Q$ such that $P\oplus Q$ is free. By previous result we have $$0\to (M'\otimes_R P)\oplus (M'\otimes_R Q)\to (M\otimes_R P)\oplus (M\otimes_R Q)\to (M''\otimes_R P)\oplus (M''\otimes_R Q)\to 0$$ is exact. Therefore $$0\to M'\otimes_R P\to M\otimes_R P\to M''\otimes_R P\to 0$$ is exact and $P$ is flat. Note that ${\QQ}$ is flat ${\ZZ}$ module since ${\QQ}=S^{-1}{\ZZ}$ where $S={\ZZ}\setminus\{0\}$ but ${\QQ}$ is not projective. Suppose ${\QQ}$ is projective ${\ZZ}-$module then ${\QQ}$ is a free ${\ZZ}-$module which is a contradiction.
+
+\end{note}
+
+\begin{defn}
+
+Let $R-$ be a ring.n A projective module is said to be stably free if there exists a free module $Q$ such that $P\oplus Q$ is free.
+
+\end{defn}
+
+\begin{eg}
+
+\begin{enumerate}
+
+\item Any free module.
+
+\end{enumerate}
+
+\end{eg}
+
+\begin{qns}
+
+Give an example of a module $M$ and a free module $F$ such that $F\oplus M\cong M.$
+
+\end{qns}
+
+\textit{Ans.} Let $F=R^n$, $M=\displaystyle\bigoplus_{i\in{\NN}} R_i$ where $R_i=F^n$ for all $i\in{\NN}.$
+
+\begin{theorem}
+
+Let $(R,m)$ be a local ring. Then any finitely generated projective $R-$module $P$ is free over $R.$
+
+\end{theorem}
+
+\proof Let $S\subseteq P$ be a minimal generating set. Let $S=\{x_1,\cdots,x_n\}$ then $\overline{S}=\{x_1+mP,\cdots,x_n+mP\}$ is the basis of $P/mP$ over $R/m.$ Since $P=\gen{S}$ there exists a surjective map $\phi:R^n\to P$. Consider the exact sequence \begin{equation}
+0\to \Ker \phi\xrightarrow{i} R^n\xrightarrow{\phi}P\to 0.
+\end{equation} Then we have 
+
+\begin{center}
+
+\begin{tikzcd}
+ & \Ker\phi\otimes_R R/m\ar[r,"\tilde{i}"] & R^n\otimes_R R/m \ar[r,"\tilde{\phi}"] & P\otimes_R R/m  \ar[r] &0 \\
+ & \dfrac{\Ker\phi}{m\Ker\phi}\ar[u,phantom, "\nvisom"]\ar[r,"\tilde{i}"] & (R/m)^n \ar[u,phantom, "\nvisom"]\ar[r,"\tilde{\phi}"] &P/mP \ar[u, phantom, "\nvisom"]\ar[r] &0
+\end{tikzcd}
+
+\end{center}
+
+Since $\dim (R/m)^n=n=\dim P/mP$, $\tilde{\phi}$ is an isomorphism $\dfrac{\Ker \phi}{m\Ker \phi}=0.$ Since $P$ is projective (17) is split exact. Therefore $R^n\cong \Ker \phi\oplus P$ and hence $\Ker \phi$ is finitely generated. By NAK, $\Ker\phi=0$. Hence $P$ is free. \qed
+
+\begin{prop}
+
+Let $R$ be a commutative ring with 1 and $\phi:R^k\to R^n$ be an endomorphism. Then $n\leq k.$
+
+\end{prop}
+
+\proof Let $m\in\mspec R.$ Consider the exact sequence \begin{equation}
+0\to \Ker\phi\xrightarrow{i} R^k\xrightarrow{\phi} R^n\to 0.
+\end{equation}
+of $R-$ modules. We have 
+
+\begin{center}
+
+\begin{tikzcd}
+& \Ker\phi\otimes_R R/m \ar[r,"\tilde{i}"] & R^k\otimes_R R/m \ar[r,"\tilde{\phi}"] & R^n\otimes_R R/m \ar[r] & 0 \\
+&\Ker\phi\otimes_R R/m \ar[u, phantom, "\nvisom"] \ar[r,"\tilde{i}"]& (R/m)^k \ar[u,phantom, "\nvisom"] \ar[r,"\tilde{\phi}"] & (R/m)^n \ar[u,phantom, "\nvisom"]\ar[r] &0
+\end{tikzcd}
+
+\end{center}
+
+Since $(R/m)^k$ is vector space over $R/m$ and the map $\tilde{\phi}$ is onto, by Rank-Nullity theorem $n\leq k.$ \qed
+
+\begin{theorem}
+
+Let $R$ be a commutative ring with 1 such that $R^m\cong R^n$ then $m=n.$
+
+\end{theorem}
+
+\proof Let $\psi:R^m\to R^n$ be the isomorphism then there exists $\phi:R^n\to R^m$ such that $\phi\circ \psi=\id_{R^m}$ and $\psi\circ \phi=\id_{R^n}.$ Since $\psi$ is onto, $n\leq m$ and $\phi$ is onto implies $m\leq n.$ Hence $m=n.$ \qed \\
+
+For a commutative ring $R$ with 1, we define $\rk{R^n}=n$. For a finitely generated free module $F$, there exists $n\in {\RR}$ such that $F\cong R^n$. So we define $\rk{F}=n.$ Let $P$ be a finitely generated projective module over $R.$ Define $\text{rank}:\spec R\to P$ given by $p\mapsto \rk{(P_p)}.$ 
+ 
+\begin{note}
+
+Let $P$ be a projective module, then there exists $Q$ such that $P\oplus Q\cong F$ where $F$ is a free module. Let $p\in \spec R.$ then $(P\oplus Q)\otimes_R R_p\cong F\otimes_R R_p \Rightarrow P_p\otimes_R Q_p\cong F_p.$ Since $P_p$ is a finitely generated over a local ring in $R_p$, and $F_p$ is free $R_p$ module, therefore $P_p$ is projective $R_p$ module and hence $P_p$ is free over $R_p$. So $\rk{(P_p)}$ is well defined. Note that if $R$ is local then the rank function is constant.
+
+\end{note}
+
+\begin{theorem}
+
+Let $R$ be a semi local ring and $P$ be a finitely generated projective module over $R$ of constant rank then $P$ is free.
+
+\end{theorem}
+
+\proof Let $\mspec R=\{m_1,\cdots, m_r\}$ and $J=\displaystyle\bigcap_{i=1}^r m_i$ be the Jacobson radical. By Chinese Remainder theorem $P/JP\cong P/m_1P\times\cdots\times P/m_rP$ and $R/J\cong R/m_1\times\cdots\times R/m_r$ and $P/JP$ is $R/J$ module. Let $S=\{s_1,\cdots,s_k\}$ be a minimal generating set of $P$ over $R$. We claim that $\overline{S}=\{s_1+JP,\cdots,s_k+JP\}$ be the minimal generating set of $P/JP$ over $R/J.$ If not, we assume that $P/JP$ is generated by $\{s_1+JP,\cdots,s_{k-1}+JP\}$. Let $N=\gen{s_1,\cdots,s_{k-1}}.$  Pick $x\in P$ then $x+JP=\displaystyle\sum_{i=1}^{k-1} (r_i+J)(s_i+JP) \Rightarrow x-\displaystyle\sum_{i=1}^{k-1} r_is_i\in JP \Rightarrow x\in N+JP \Rightarrow P=N+JP.$ By NAK, $P=N$ which is a contradiction. So our claim is proved. Thus $P/JP$ is free $R/J$ module. Now we consider the exact sequence \begin{equation}
+0\to \Ker f\to R^k\to P\to 0.
+\end{equation}
+
+Since $P$ is projective, this above sequence is split exact and therefore $\Ker f$ is finitely generated. From (19) \begin{center}
+
+\begin{tikzcd}
+& \Ker f\otimes_R R/J \ar[r,"i\otimes 1"]  & R^k\otimes_R R/J \ar[r,"f\otimes 1"] & P\otimes_R R/J \ar[r] & 0\\
+&\dfrac{\Ker f}{J\Ker f} \ar[u, phantom, "\nvisom"]\ar[r,"i\otimes 1"] & (R/J)^k \ar[u, phantom, "\nvisom"]\ar[r,"f\otimes 1"] & P/JP\ar[u, phantom, "\nvisom"] \ar[r] &0
+\end{tikzcd}
+
+\end{center}
+
+We claim that $\{s_1+JP,\cdots,s_k+JP\}$ is a $R/J$ basis of $P/JP$. If we prove the claim then $f\otimes 1$ is an isomorphism and $\Ker f/J\Ker f=0 \Rightarrow \Ker f=0$ by NAK and $P\cong R^k$ hence $P$ is free. 
+
+\textit{\textbf{Proof of the claim.}}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{note}
+
+Let $F_i$ be free $R_i$ module of same rank for all $1\leq i\leq k$, then $F=F_1\times\cdots\times F_k$ is free $R_1\times\cdots\times R_k$ module. That is $F_i\cong (R_i)^l$ for some $l\in{\NN},1\leq i\leq n.$ Then $F=F_1\times\cdots\times F_k\cong (R_1)^l\times\cdots\times (R_k)^l\cong (R_1\times\cdots\times R_k)^l.$ We will prove this by induction on $k.$ Let $\theta:R_1^l\times R_2^l\to (R_1\times R_2)^l$ defined by $((x_1,\cdots,x_l),(x_1',\cdots,x_l'))\mapsto ((x_1,x_1'),\cdots,(x_l,x_l'))$ be the required isomorphism.
+
+\end{note}
+
+\begin{note}
+
+Since $P$ is projective of constant rank, let $P_m\cong (R_m)^l$ for all $m\in mspec R$ and for some $l\in{\NN}.$ Let $P/mP\cong (R/m)^s$ for some $s\in {\NN}.$ Then $P/mP\otimes_R R_m\cong (R/m)^s\otimes_R R_m \Rightarrow \dfrac{P_m}{mP_m}\cong \left(\dfrac{R_m}{mR_m}\right)^s\cong \left(\dfrac{R_m}{mR_m}\right)^l\Rightarrow l=s.$ Hence for any $m\in\mspec R$, $P/mP\cong (R/m)^l.$ Therefore $P/JP\cong \displaystyle\prod_{i=1}^r P/m_iP\cong \displaystyle\prod_{i=1}^r (R/m_i)^l\cong \left(\displaystyle\prod_{i=1}^r R/m_i\right)^l\cong (R/J)^l.$
+
+\end{note}
+
+\begin{qns}
+
+Let $R$ be a semi local ring and $F$ be a finitely generated free module over $R$. Is any minimal generating set of $F$ an $R-$basis of $F?$.
+
+\end{qns}
+
+
+\begin{defn}
+
+Let $M$ be an $R-$module. $M$ is said to be finitely presented if there exists finitely generated free modules $F_1$ and $F_2$ such that the following sequence is exact $$F_1\to F_2\to M\to 0.$$
+
+\end{defn}
+
+
+\begin{note}
+Suppose $M$ is a finitely generated module over $R$. If $\Ker f$ is finitely generated then we have the following sequence
+
+\begin{center}
+\begin{tikzcd}
+R^k \arrow[rr, "i\circ \phi"] \arrow[rd, "\phi"] &                                   & R^n \arrow[r, "f"] & M \arrow[r] & 0 \\
+                                                 & \Ker f \arrow[ru, "i"] \arrow[rd] &                    &             &   \\
+                                                 &                                   & 0                  &             &  
+\end{tikzcd}
+\end{center}
+
+ is exact because $\Ker \phi=\im\phi=\im (i\circ \phi).$ Thus a finitely generated module may not be finitely presented. If $R$ is Noetherian then it is true. Conversely any finitely presented module is finitely generated.
+
+\end{note}
+
+\begin{theorem}
+
+Let $R$ be a ring and $M, N$ be $R-$modules and $S$ be a flat $R-$algebra. Suppose $M$ is of finite presentation then we have $$\Hom{M,N}\otimes_R S\cong \Homs{M\otimes_R S, N\otimes_R S}.$$
+
+\end{theorem}
+
+\proof Since $M$ is of finite presentation, there exists two finitely generated free module $R^p$ and $R^q$ such that \begin{equation}
+R^p\to R^q\to M\to 0 
+\end{equation}
+is exact. Then for any $R-$module $N$ the following sequence \begin{equation}
+0\to \Hom{M,N}\to \Hom{R^q,N}\to \Hom{R^p,N}
+\end{equation}
+is exact. As $S$ is flat, $$0\to \Hom{M,N}\otimes_R S\to \Hom{R^q,N}\otimes_R S\to \Hom{R^p,N}\otimes_R S$$ is exact. Now consider the diagram 
+
+\begin{center}
+
+\begin{tikzcd}
+0 \arrow[r] & {\Hom{M,N}\otimes_R S} \arrow[d, "\lambda_M"] \arrow[r] & {\Hom{R^q,N}\otimes_R S} \arrow[d, "\lambda_{R^q}"] \arrow[r] & {\Hom{R^p,N}\otimes_R S} \arrow[d, "\lambda_{R^p}"] \\
+0 \arrow[r] & {\Homs{M\otimes_R S,N\otimes_R S}} \arrow[r]            & {\Homs{R^q\otimes_R S,N\otimes_R S}} \arrow[r]                & {\Homs{R^p\otimes_R S,N\otimes_R S}}               
+\end{tikzcd}
+
+\end{center}
+
+where $\lambda_M: \Hom{M,N}\otimes_R S\to \Homs{M\otimes_R S,N\otimes_R S}$ is defined by $\lambda_M(f\otimes s)=\tilde{f}$ and $\tilde{f}:M\otimes_R S\to N\otimes_R S$ is defined by $\tilde{f}(m\otimes s)=f(m)\otimes s.$ By Universal property $\tilde{f}$ is well defined. Since $\Hom{R^q,N}\otimes_R S\cong (\Hom{R,N})^q\otimes S\cong N^q\otimes S=(N\otimes_R S)^q$ and $\Homs{R^q\otimes_R S,N\otimes_R S}\cong\Homs{S^q,N\otimes_R S}\cong (N\otimes_R S)^q.$ Thus the mappings $\lambda_{R^q}$ and $\lambda_{R^p}$ are isomorphism. Since the bottom sequence of the above diagram is exact and the diagram ia commutative, $\lambda_M$ is also an isomorphism. \qed
+
+\begin{corollary}
+
+Let $M$ and $N$ be $R-$modules with $M$ be of finite presentation. Then for each $p\in\spec R$, $$(\Hom{M,N}_p\cong \text{Hom}_{R^p}(M_p,N_p).$$
+
+\end{corollary}
+
+\proof Take $S=R_p.$ \qed
+
+
+\begin{theorem}
+
+Let $R$ be any ring and $M$ be a finitely presented. Then the followings are equivalent:
+\begin{enumerate}
+
+\item The map $\theta:M\otimes_R M^*\to R$ defined by $\theta(m,f)=f(m)$ is an isomorphism.
+
+\item There exists an $R-$module $N$ such that $M\otimes_R N\cong R.$
+
+\item $M_m\cong R_m$ for all $m\in\mspec R.$
+
+\item $M_p\cong R_p$ for all $p\in \spec R.$
+
+\item $M$ is projective of rank 1.
+
+\end{enumerate}
+
+\end{theorem}
+
+\proof $(1)\Rightarrow (2)$ Take $N=M^*.$\\
+$(2)\Rightarrow (3)$ $M\otimes_R N \cong R\Rightarrow M_m\otimes_R N_m \cong R_m \Rightarrow M_m\otimes_{R_m} N_m\cong R_m \Rightarrow (M_m\otimes_{R_m} N_m)\otimes_{R_m} \dfrac{R_m}{mR_m}\cong \dfrac{R_m}{mR_m}\Rightarrow M_m\otimes_{R_m} \dfrac{N_m}{mN_m}\cong \dfrac{R_m}{mR_m}\Rightarrow \dfrac{M_m}{mR_m}\otimes_{R_m} \dfrac{N_m}{mN_m}\cong \dfrac{R_m}{mR_m}\footnote{As $K(m):=\dfrac{R_m}{mR_m}$ and $K(m)^l\otimes_{K(m)} K(m)^s\cong K(m)^{ls}.$}.$ Therefore, $\dfrac{M_m}{mM_m}\cong \dfrac{R_m}{mR_m}.$ By NAK $M_m=\gen{x},x\in M_m \Rightarrow M_m\cong \dfrac{R_m}{Ann_{R_m}(x)} \Rightarrow Ann_{R_m}(x)(M_m\otimes_{R_m} N_m)=0 \Rightarrow Ann_{R_m}(x) R_m=0 \Rightarrow Ann_{R_m}(x)=0 \Rightarrow M_m=R_m.$\\
+
+$(3)\Rightarrow (4)$ Further localization.\\
+
+$(4)\Rightarrow (5)$ By definition.\\
+
+$(5)\Rightarrow (1)$ Since $M$ is of finite presentation, $(\Hom{M,R})_m\cong \text{Hom}_{R_m}(M_m,R_m)$ for all $m\in\mspec R,$ that is $(M^*)_m\cong (M_m)^*.$ Now $M$ is projective of rank 1 so $M_m\cong R_m.$ So we have $M_m\otimes_{R_m} (M_m)^*\cong R_m\otimes_{R_m} (R_m)^*\cong R_m.$ Again from the above equation, \begin{align*}
+M_m\otimes_{R_m} (M_m)^* &\cong M_m\otimes_{R_m} (M^*)_m\\
+&\cong M_m \otimes_R (M^*)_m\\
+&\cong M_m\otimes_R (M^*\otimes_R R_m)\\
+&\cong (M\otimes_R R_m)\otimes_R (M^*\otimes_R R_m)\\
+&\cong (M\otimes_R M^*)\otimes_R (R_m\otimes_R R_m)\\
+&\cong (M\otimes_R M^*)\otimes_R R_m\\
+&\cong (M\otimes_R M^*)_m
+\end{align*}
+  
+Hence $(M\otimes_R M^*)_m\cong R_m$ for all $m\in \mspec R.$ By Local-global property $M\otimes_R M^*\cong R.$
+
+\begin{note}
+
+Let $I$ and $J$ be two ideals of $R$ then  $R/I\otimes_R R/J\cong \dfrac{R/I}{J(R/I)}\cong \dfrac{R/I}{(J+I)/I}\cong \dfrac{R}{I+J}.$ (Check this isomorphism as ring.)
+
+\end{note}
+
+
+\textbf{Picard group.} Let $\sum$ be the isomorphism classes of projective $R-$modules of rank 1. Define \begin{align*}
+\cdot:\sum\times\sum&\to \sum\\
+([P],[Q])&\mapsto [P\otimes_R Q]
+\end{align*}
+
+We need to show that $\left(\sum,\cdot\right)$ is a group with inverse of $[P]$ is $[P^*].$ This group is called Picard group of $R$ and it is denoted by $Pic~R.$ Let $P,Q$ be two projective module of rank 1 then $$(P\otimes_R Q)\otimes_R R_m\cong P_m\otimes_R Q_m\cong P_m\otimes_{R_m} Q_m\cong R_m\otimes_{R_m} R_m\cong R_m.$$ Thus $P\otimes_R Q$ is also a projective module of rank 1. By Corollary 14.88 $(M^*)_p\cong (M_p)^*\cong (R_p)^*\cong R_p$ for all $p\in\spec R.$ Therefore $M$ is projective of rank 1 implies $M^*$ is also projective of rank 1.\\
+
+\textbf{Free, Projective and Flat resolution.}
+
+\begin{defn}
+
+Let $M$ be an $R-$module. A free (or projective or flat) resolution of $M$ over $R$ is an exact sequence of $R-$modules $$\cdots\to P_2\xrightarrow{f_2} P_1\xrightarrow{f_1} P_0\xrightarrow{f_0} M\to 0$$
+where each $P_i$ is a free (or projective or flat respt.) $R-$module.
+\end{defn}
+
+\begin{lemma}
+
+Let $M$ be an $R-$module. Then projective resolution of $M$ over $R$ exists.
+
+\end{lemma}
+
+\proof For any module $M$, there exists a free module $F$ and a surjective map $F_0\xrightarrow{f_0} M\to 0.$ Consider the $\Ker f_0,$ then there exists a free module $F_1$ with the diagram 
+
+\begin{center}
+
+\begin{tikzcd}
+F_1 \arrow[rr, "f_1=i\circ \pi"] \arrow[rd, "\pi_1"] &                                           & F_0 \arrow[r, "f_0"] & M \ar[r] &0 \\
+                                                     & \Ker f_0 \arrow[rd] \arrow[ru, "i", hook] &                      &   \\
+                                                     &                                           & 0                    &  
+\end{tikzcd}
+
+\end{center}
+
+The above diagram is exact since $\Ker f_0=\im \pi_1=\im i\circ \pi_1=\im f_1$ since $i$ is the inclusion map and $\pi_1$ is onto. Next we consider $\Ker f_1$, then there exists $F_2$ such that 
+
+\begin{center}
+
+\begin{tikzcd}
+\cdots \arrow[r] & F_2 \arrow[rr, "f_2"] \arrow[rd, "\pi_2"] &                                           & F_1 \arrow[rr, "f_1=i\circ \pi"] \arrow[rd, "\pi_1"] &                                           & F_0 \arrow[r, "f_0"] & M \ar[r] &0\\
+                 &                                           & \Ker f_1 \arrow[rd] \arrow[ru, "i", hook] &                                                      & \Ker f_0 \arrow[rd] \arrow[ru, "i", hook] &                      &   \\
+                 &                                           &                                           & 0                                                    &                                           & 0                    &  
+\end{tikzcd}
+
+\end{center}
+
+Inductively we can construct a free resolution of $M$. Since every free module is projective and therefore flat, we have a projective (or flat) resolution. \qed
+
+\textbf{Tor and Ext.}
+
+\begin{defn}
+
+Let $M$ be an $R-$module. We consider a projective resolution of $M$ that is $$\mathcal{C}\equiv \cdots\to P_2\xrightarrow{f'_2} P_1\xrightarrow{f'_1} P_0\xrightarrow{f'_0} M\to 0.$$ Let $N$ be another $R-$module. We consider, \begin{enumerate}
+
+\item $$\mathcal{C}\otimes_R N\equiv \cdots\to P_2\otimes_R N\xrightarrow{f_2} P_1\otimes_R N\xrightarrow{f_1} P_0\otimes_R N\xrightarrow{f_0} M\otimes_R N\to 0$$ where $f_i=f'_i\otimes 1$ for all $i\in{\NN}.$ Then we define $\text{Tor}_i^R (M,N):=H_i(\mathcal{C}\otimes_R N)=\dfrac{\Ker f_i}{\im f_{i+1}}.$
+
+\item $$\Hom{\mathcal{C},N}\equiv \cdots\xleftarrow{f^*_2}\Hom{P_1,N}\xleftarrow{f^*_1}\Hom{P_0,N}\xleftarrow{f^*_0}\Hom{M,N}\leftarrow 0.$$
+
+we define $\text{Ext}^{~i}_R(M,N):=H^i(\Hom{\mathcal{C,N}})=\dfrac{\Ker f^*_{i+1}}{\im f^*_i}.$
+
+\end{enumerate}
+
+\end{defn}
+
+
+\begin{remark}
+
+These definition doesn't depend on the choice of resolution of $M.$
+
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Integral Dependence and Valuation}
+
+\begin{defn}
+
+Let $B$ be a ring and $A\subseteq B$ be a subring. An element $x\in B$ is said to be integral over $A$ if $x$ is a root of a monic polynomial in $A[T].$
+
+\end{defn}
+
+\begin{prop}
+
+Let $A\subseteq B$ where $A$ and $B$ are commutative ring with 1. Then the followings are equivalent: \begin{enumerate}
+\item $x\in B$ is integral over $A$.
+
+\item $A[x]$ is a finitely generated $A-$ module.
+\end{enumerate}
+
+\end{prop}
+
+\proof $(1)\Rightarrow (2)$ We note that $A[x]=\Span{1,x,x^2,\cdots}$ over $A$. As $x\in B$ is integral over $A$, there exist $f(T)=T^n+a_{n-1}T^{n-1}+\cdots+a_0\in A[T]$ such that $f(x)=0.$ Let $g(T)\in A[T]$ then by division algorithm, $$g(T)=q(T)f(T)+r(T),r(T)=0~\text{or}~\deg r(T)<\deg f(T)=n.$$ Therefore, $g(x)=r(x)\in\Span{1,x,\cdots,x^{n-1}}.$ Hence $A[x]$ is a finitely generated $A-$module and $A[x]=\gen{1,x,\cdots,x^{n-1}}.$
+
+
+$(2) \Rightarrow (1)$ Suppose $A[x]$ is a finitely generated $A-$module. Let $\{f_1,\cdots,f_r\}$ be a finite generating set of $A[x]$ over $A.$ Let $d>\deg f_i(T),1\leq i\leq r$. Since $x^d\in A[x]$, $$x^d=c_1f_1+\cdots+c_rf_r,c_i\in A[x];1\leq i\leq r.$$ Therefore $x$ satisfies a polynomial equation $T^d-\displaystyle\sum_{i=1}^r c_if_i(T)\in A[T].$ So, $x$ is integral over $A.$ \qed 
+
+\begin{theorem}[Going up theorem]
+
+Let $B$ be a ring and $A$ be a subring of $B$ such that $B$ is integral over $A$. Then $A$ is field if and only if $B$ is field.
+
+\end{theorem}
+
+\proof Suppose $A$ is field. Pick $u\in B\setminus A$, since $u$ is integral over $A, A[u]=A(u)\subseteq B$. Therefore $u^{-1}\in B.$
+
+Conversely, Suppose $B$ is a field. Let $a\in A\subseteq B \Rightarrow a^{-1}\in B.$ Since $B$ is integral over $A, a^{-1}$ satisfies a monic polynomial in $A$ that is $(a^{-1})^n+\cdots+a_1(a^{-1})+a_0=0.$ Clearing the denominator, $$a^{-1}=-(a_{n-1}+\cdots+a_0a^{n-1})\in A.$$ \qed
+
+\begin{lemma}
+
+Let $D$ be an integral domain and $f\in D[X_1,\cdots,X_n]$ and $N\geq 1$ be an integer such that $N>\text{~total degree of f}.$ Suppose $\phi\in \aut_D D[X_1,\cdots,X_n]$ such that $\phi(X_i)=X_i+X_n^{N^i},1\leq i\leq n-1$ and $\phi(X_n)=X_n$. Then the highest degree term of $\phi(f)$ involving $X_n$ is of the form $cX_n^p$ where $c\in D.$
+
+\end{lemma}
+
+\proof We consider any non zero term of $f$ which is of the form $c_\alpha X_1^{a_1}\cdots X_n^{a_n}$ where $\alpha=(a_1,\cdots,a_n)$ and $c_\alpha\neq 0.$ Then $$\phi(c_\alpha X_1^{a_1}\cdots X_n^{a_n})=c_\alpha \left(X_1+X_n^N\right)^{a_1}\left(X_2+X_n^{N^2}\right)^{a_2}\cdots\left(X_{n-1}+X_n^{N^{n-1}}\right)^{a_{n-1}} X_n^{a_n}.$$
+After expanding we get the highest degree term is $c_\alpha X_n^{a_n+a_1N+\cdots+a_{n-1}N^{n-1}}.$ If there exist $\beta=(b_1,\cdots,b_n)$ such that $c_\beta X_1^{b_1}\cdots X_n^{b_n}$ is a term of $f$ and the highest degree power of $\phi(c_\beta X_1^{b_1}\cdots X_n^{b_n})=c_\beta X_n^{b_n+b_1N+\cdots+b_{n-1}N^{n-1}}$ cancels $c_\alpha X_n^{a_n+a_1N+\cdots+a_{n-1}N^{n-1}}$ then $c_\beta=-c_\alpha$ and $b_N+b_1N+\cdots+b_{n-1}N^{n-1}=a_n+a_1N+\cdots+a_{n-1}N^{n-1} \Rightarrow (b_1,\cdots,b_n)=(a_1,\cdots,a_n)$ (by division algorithm) hence $\alpha=\beta$ and which implies $c_\alpha X^\alpha=-c_\beta X^\beta$ which is a contradiction as both are monomials of $f.$ \qed
+
+\begin{defn}
+
+Let $K$ be a field. The elements $y_1,\cdots,y_q$ in some $K-$algebra are called algebraically independent if there is no polynomial $p\in K[X_1,\cdots,X_q]$ such that $p(y_1,\cdots, y_q)=0.$
+
+\end{defn}
+
+\begin{obs}
+
+Suppose $y_1,\cdots,y_q$ are algebraically independent over $K$. Then the map $\theta:K[X_1,\cdots,X_q]\to K[y_1,\cdots,y_q]$ defined by $X_i\mapsto y_i,1\leq i\leq q$ is an isomorphism. Conversely, suppose $K[X_1,\cdots, X_q]\cong K[y_1,\cdots, y_q]$ and $\phi:K[X_1,\cdots,X_n]\to K[y_1,\cdots, y_q]$ be an isomorphism. Let $\alpha:K[X_1,\cdots,X_q]\to K[X_1,\cdots, X_q]$ be a map where $\alpha(X_i)=p_i$ and $p_i=\phi^{-1}(y_i),1\leq i \leq q$. We note that $\im \phi^{-1}=\im \alpha=K[p_1,\cdots,p_q]$. Because $\phi^{-1}$ is an isomorphism, we have $K[p_1,\cdots,p_q]=K[X_1,\cdots,X_q]$, hence $\alpha$ is surjective and thus $\alpha$ is an isomorphism. Now $\phi\circ \alpha(X_i)=y_i,1\leq i\leq q$ and $\phi\circ \alpha$ is an isomophism. Suppose $y_1,\cdots, y_q$ are algebraically dependent so there exist $0\neq f(X_1,\cdots, X_q)\in K[X_1,\cdots, X_q]$ such that $f(y_1,\cdots,y_q)=0 \Rightarrow \phi\circ \alpha(f)=0 \Rightarrow f=0$ which is a contradiction.
+
+\end{obs}
+
+\begin{lemma}[Vasconcelous]
+
+Let $R$ be a ring and $M$ be a finitely generated $R-$module. $\phi:M\to M$ is a surjective $R-$linear map then $\phi$ is an isomorphism.
+
+\end{lemma}
+
+\proof We consider $M$ as an $R[X]$ module via $\phi$, i.e., the scalar multiplication map $\cdot:R[X]\times M\to M$ is $(f,m)\mapsto f(\phi)m.$ Since $\phi$ is surjective, $\phi(M)=M \Rightarrow X\cdot M=M.$ Take $I=\gen{X}$, so by NAK there exist $f(X)\in I$ such that $(1+f(X))M=0.$ Let $m\in\Ker\phi \Rightarrow \phi(m)=X\cdot m=0.$ So $(1+f(X))\cdot m=m+0=m$ (as $f(x)\in I$). Therefore $m=0$ as $(1+f(X))M=0$. \qed
+
+\begin{lemma}
+
+Let $R$ be an Noetherian ring. If $\phi: R\to R$ is an epimorphism then $\phi$ is an isomorphism.
+
+\end{lemma}
+
+\proof Note that we have the following ascending chain of ideals of $R$, $$\Ker\phi\subseteq \Ker\phi^2\subseteq\cdots .$$ Since $R$ is Noetherian, $\Ker\phi^{n_0}=\Ker\phi^{n_0+k}$ for some $n_0\in{\NN}$ and for all $k\in{\NN}$. Let $x\in\Ker\phi$, as $\phi$ is surjective, $\phi^n$ is also surjective for all $n\in{\NN}$, hence there is $y\in R$ such that $\phi^{n_0}(y)=x \Rightarrow \phi^{n_0+1}(y)=\phi(x)=0 \Rightarrow y\in\Ker\phi^{n_0+1}=\Ker\phi^{n_0} \Rightarrow \phi^{n_0}(y)=0 \Rightarrow x=0.$ \qed
+
+\begin{corollary}
+
+Let $M$ be an Noetherian $R-$module and $\phi:M\to M$ be a surjective $R-$linear map. Then $\phi$ is an isomorphism.
+
+\end{corollary}
+
+\begin{note}
+
+Note that the statement is not true if surjectivity is replaced by injectivity. For example let $R={\ZZ}$ and $\phi:{\ZZ}\to {\ZZ}$ be the map where $\phi(x)=2x$. Here $\phi$ is injective but not surjective.
+
+\end{note}
+
+\begin{theorem}[Noether Normalization lemma]
+
+Let $K$ be a field and suppose $A=K[r_1,\cdots,r_m]$ is a finitely generated $K-$algebra. Then for some $q,0\leq q\leq m$, there are algebraically independent elements $y_1,\cdots,y_q\in A$ such that $A$ is integral over $K[y_1,\cdots, y_q].$
+
+\end{theorem}
+
+\proof 
+
+\begin{eg}
+
+Let $A=K[X,Y,Z]/\gen{Y-X^2,Y^2-XZ}=K[r_1,r_2,r_3]$ where $r_1=X+\gen{Y-X^2,Y^2-XZ},r_2=Y+\gen{Y-X^2,Y^2-XZ}$ and $r_3=Z+\gen{Y-X^2,Y^2-XZ}.$ Let $\phi:K[X,Y,Z]\to K[T]$ be a map defined by $X\mapsto T,Y\mapsto T^2$ and $Z\mapsto T^3$. Then $\phi$ is a ring morphism and $\Ker \phi=\gen{Y-X^2,Y^2-XZ}.$ By first isomorphism theorem $K[T]\cong A.$
+
+\begin{center}
+
+\begin{tikzcd}
+{K[r_1,r_2,r_3]} \arrow[d, no head] \arrow[d, "\text{integral}", no head, bend left=67, shift left] \\
+{K[r_1]} \arrow[d, no head] \arrow[d, "\text{transcendental}", no head, bend left=60, shift left=2] \\
+K                                                                                                  
+\end{tikzcd}
+
+\end{center}
+
+\end{eg}
+
+\begin{theorem}[Weak Nullstellensatz]
+
+Let $K$ be an algebraically closed field. Then $\mathfrak{m}$ is a maximal ideal in a polynomial ring $K[X_1,\cdots,X_n]$ if and only if $\mathfrak{m}=\gen{X_1-a_1,\cdots,X_n-a_n}$ for some $a_1,\cdots,a_n\in K.$ Equivalently, there is a one to one correspondence between points in $K^n$ and maximal ideals in $K[X_1,\cdots,X_n].$
+
+\end{theorem}
+
+\proof It is easy to check that $\gen{X_1-a_1,\cdots,X_n-a_n}\in\mspec K[X_1,\cdots,X_n].$ Conversely, suppose $\mathfrak{m}\in\mspec K[X_1,\cdots,X_n]$ and denote $x_i=X_i+\mathfrak{m}\in A/\mathfrak{m},1\leq i\leq n.$ Then $A/\mathfrak{m}$ is a finitely generated $K-$algebra. By Noether normalization lemma, there exist $y_1,\cdots,y_q\in A/\mathfrak{m};0\leq q\leq n$, algebraically independent elements over $K$ such that $A/\mathfrak{m}$ is integral over $K[y_1,\cdots,y_q].$ Since $A/\mathfrak{m}$ is field and $A/\mathfrak{m}|K[y_1,\cdots,y_q]$ is an integral extension, $K[y_1,\cdots,y_q]$ is also field. But $K[y_1,\cdots,y_q]\cong K[T_1,\cdots,T_q]$, therefore $q=0$ and $A/\mathfrak{m}|K$ is an algebraic extension. As $K$ is algebraically closed, $A/\mathfrak{m}=K$ and therefore $x_i\in K.$ Let $X_i+\mathfrak{m}=a_i+\mathfrak{m} \Rightarrow X_i-a_i\in \mathfrak{m}, 1\leq i\leq m \Rightarrow \gen{X_1-a_1,\cdots,X_m-a_m}\subseteq \mathfrak{m}.$ Since both are maximal ideals of $K[X_1,\cdots,X_n]$. We have $\mathfrak{m}=\gen{X_1-a_1,\cdots,X_n-a_n}.$ \qed
+
+\begin{remark}
+
+The result is not true if $K$ is not algebraically closed. For example take $K={\RR}$ and $m=\gen{X^2+1}.$
+
+\end{remark}
+
+\begin{theorem}[Hilbert's Nullstellensatz-Zariski form]
+
+Let $K$ be a field and $E$ be a finitely generated $K-$algebra. If $E$ is field then $E|K$ is a finite algebraic extension.
+
+\end{theorem}
+
+\proof Let $E=K[r_1,\cdots,r_n].$ Since $E$ is finitely generated $K-$algebra, by Noether normalization lemma, there exist $y_1,\cdots,y_q\in E;0\leq q\leq n$ algebraically independent over $K$ such that $E$ is integral over $K[y_1,\cdots,y_q].$ But $E$ is field and $E|K[y_1,\cdots, y_q]$ is integral, this implies $K[y_1,\cdots,y_q]$ is also a field and therefore $q=0.$ Hence $E|K$ is algebraic. Since $E$ is finitely generated, extension is also finite. \qed
+
+\begin{defn}
+
+Let $K$ be a field. An affine space over $K$ of dimension $n$ is just the set $K^n:=\{(a_1,\cdots,a_n):a_i\in K,1\leq i\leq n\}.$
+
+\end{defn}
+
+\textbf{Notation.} An affine space over $K$ of dimension $n$ will be denoted by $\mathbb{A}^n_K.$
+
+\begin{defn}
+
+\begin{enumerate}
+
+\item Let $S\subseteq \mathbb{A}^n_K$. Define $$I(S):=\{f\in K[X_1,\cdots, X_n]:f(a_1,\cdots,a_n)=0\text{ for all }(a_1,\cdots,a_n)\in S\}.$$
+
+\item Let $T\subseteq K[X_1,\cdots, X_n].$ Then we define $$Z(T)=\{(a_1,\cdots,a_n)\in \mathbb{A}_K^n:f(a_1,\cdots,a_n)=0\text{ for all }f\in T\}.$$
+
+\end{enumerate}
+
+\end{defn}
+
+\begin{note}
+
+\begin{enumerate}
+
+\item The set $I(S)$ in the Definition 1.17. (1) is an ideal of $K[X_1,\cdots,X_n]$ and 
+
+\item The set in the Definition 1.17. (2) is called `Algebraic set'.
+
+\end{enumerate}
+
+\end{note}
+
+\begin{obs}[Zariski topology on $\mathbb{A}_K^n$]
+
+We define a topology on $\mathbb{A}^n_K$ whose closed sets are algebraic sets. Check that this is a topology on $\mathbb{A}_K^n.$
+
+\end{obs}
+
+\begin{theorem}[Nullstellensatz]
+
+Let $K$ be an algebraically closed field and $I\subseteq K[X_1,\cdots,X_n]$ be an ideal. Then $Z(I)=\emptyset$ if and only if $1\in I.$
+
+\end{theorem}
+
+\proof If $1\in I$ then it is clear that $Z(I)=\emptyset.$ Conversely, suppose $Z(I)=\emptyset$ but $1\notin I,$ then there exist a maximal ideal $\mathfrak{m}$ of $K[X_1,\cdots,X_n]$ such that $I\subseteq \mathfrak{m}.$ Since $K$ is algebraically closed, $\mathfrak{m}=\gen{X_1-a_1,\cdots,X_n-a_n}$ for some $a_1,\cdots,a_n\in K.$ But $(a_1,\cdots,a_n)\in Z(\mathfrak{m})\subseteq Z(I)$ which is a contradiction. Hence $1\in I.$ \qed 
+
+\begin{remark}
+
+It is not true if $K$ is not algebraically closed. For example lets take $K={\RR}$ and $I=\gen{X^2+1}.$ Then $I$ is a proper ideal of ${\RR}[X]$ but $Z(I)=\emptyset.$
+
+\end{remark}
+
+\begin{theorem}[Strong Nullstellensatz]
+
+Let $K$ be an algebraically closed field and $J\subseteq K[X_1,\cdots,X_n]$ be an ideal. Then $I(Z(J))=\sqrt{J}.$
+
+\end{theorem}
+
+\proof Let $(a_1,\cdots,a_n)\in Z(J)$ and $g\in \sqrt{J} \Rightarrow g^N\in J$ for some $N\in{\NN}.$ Then $g^N(a_1,\cdots,a_n)=0 \Rightarrow g(a_1,\cdots,a_n)=0 \Rightarrow g\in I(Z(J)) \Rightarrow \sqrt{J}\subseteq I(Z(J)).$ Since $K[X_1,\cdots,X_n]$ is Noetherian, $J$ is finitely generated. Let $J=\gen{f_1,\cdots,f_r}$ and $g\in I(Z(J)).$ Introduce an extra variable $Z$ and consider $f_1,\cdots,f_r,1-Zg\in K[X_1,\cdots,X_n,Z].$ Let $\mathfrak{A}=\gen{f_1,\cdots,f_r,1-Zg}.$ We claim that $Z(\mathfrak{A})=\emptyset.$ If $(a_1,\cdots,a_n,b)\in Z(\mathfrak{A})\Rightarrow (a_1,\cdots, a_n)\in Z(J).$ Since $g\in I(Z(J)) \Rightarrow g(a_1,\cdots,a_n)=0 \Rightarrow 1-bg(a_1,\cdots,a_n)=0$ leads to a contradiction. Hence our claim is proved and by Hilbert's Nullstellensatz, $1\in\mathfrak{A}.$ Let \begin{equation}1=h_1f_1+\cdots+h_rf_r+h(1-Zg)
+\end{equation} where $h_i\in K[X_1,\cdots,X_n,Z],1\leq i\leq r, h\in K[X_1,\cdots,X_n,Z].$ We consider the ring morphism $\theta:K[X_1,\cdots,X_n,Z]\to K(X_1,\cdots,X_n)$ defined by $X_i\mapsto X_i,1\leq i\leq n$ and $Z\mapsto 1/g.$ We apply $\theta$ on (1) and we have $1=\displaystyle\sum_{i=1}^r \theta(h_i)\theta(f_i) \Rightarrow \displaystyle\sum_{i=1}^r f_i\dfrac{\tilde{h_i}}{g^{n_i}},\tilde{h_i}\in K[X_1,\cdots, X_n],1\leq i\leq n.$ Clearing the denominator, $g^P=\displaystyle\sum_{i=1}^r f_i\alpha_i \Rightarrow g\in \sqrt{J}.$ Therefore $I(Z(J))=\sqrt{J}.$ \qed
+
+\begin{note}
+
+The above method is known as Rabinowitch's trick.
+
+\end{note}
+
+\begin{theorem}[Artin-Tate]
+
+Let $A\subseteq B\subseteq C$ be rings. Suppose that $A$ is Noetherian and $C$ is finitely generated as an $A-$algebra and that $C$ is either \begin{enumerate}
+
+\item finitely generated as a $B-$module or
+
+\item integral over $B$
+ 
+\end{enumerate}
+then $B$ is finitely generated as an $A-$algebra.
+
+\end{theorem}
+
+\proof Since $(1)$ and $(2)$ are equivalent, we assume (1). Let $C=A[x_1,\cdots,x_n]$ ($x_1,\cdots,x_n$ generates $C$ as an $A-$algebra) and $y_1,\cdots,y_m$ generates $C$ as a $B-$module. As $x_i\in C,1\leq i\leq n$ we have $$(*)\quad x_i=\sum_{j=1}^m b_{ij}y_j,b_{ij}\in B,1\leq i\leq n~\text{and}~(**)\quad y_iy_j=\sum_{k=1}^m b_{ijk}y_k,1\leq i\leq m,\leq j\leq m.$$
+
+Let $B_0$ be the algebra over $A$ generated by $b_{ij}$ and $b_{ijk}$. By Hilbert basis theorem, $B_0$ is Noetherian (since $A$ is Noetherian). Let $f\in C=A[x_1,\cdots,x_n].$ Substituting $(*)$ and $(**)$ repeatedly we can write $f=\displaystyle\sum_{i=1}^m h_iy_i,h_i\in B_0.$ Therefore $C$ is finitely generated as $B_0-$module. Hence $C$ is Noetherian $B_0-$module. As $B$ is a submodule of $C$, so $B$ is finitely generated $B_0-$module and $B_0$ is finitely generated $A-$algebra. Hence $B$ is finitely generated $A-$algebra. \qed
+
+
+\begin{theorem}
+
+Let $F|K$ be an algebraic extension and $S=\{\alpha_1,\cdots,\alpha_n\}\subseteq F$, then $K[\alpha_1,\cdots,\alpha_n]=K(\alpha_1,\cdots,\alpha_n).$ Consider the map $\theta:K[X_1,\cdots,X_n]\to K(\alpha_1,\cdots,\alpha_n)$ is defined by $X_i\mapsto \alpha_i,1\leq i\leq n.$ Then $\theta$ is a $K-$algebra homomprhism and $\Ker\theta=\gen{f_1(X_1),f_2(X_1,X_2),\cdots,f_n(X_1,\cdots,X_n)}.$
+
+\end{theorem}
+
+\proof Since $K(\alpha_1)|K$ is an algebraic extension, we consider the minimal polynomial $f_1(X_1)\in K[X_1]$ of $\alpha_1$ over $K.$ Again $\alpha_2$ is algebraic over $K$ so over $K(\alpha_1).$ Let $f_2(X_1,X_2)\in K[X_1,X_2]$ such that $f_2(\alpha_1,X_2)\in K(\alpha_1)[X_2]$ is the minimal polynomial of $\alpha_2$ over $K(\alpha_1).$ Here we note that $K[\alpha_1]=K(\alpha_1).$ Therefore we can consider the coefficient of the minimal polynomial of $\alpha_2$ over $K(\alpha_1)$ are in $K[\alpha_1].$ Therefore we have $K[X_1]/f_1(X_1)\cong K(\alpha_1)$ and $K(\alpha_1)[X_2]/f_2(\alpha_1,X_2)\cong K(\alpha_1,\alpha_2).$ Inductively we can consider $f_i(X_1,\cdots,X_i)$ such that $$K(\alpha_1,\cdots,\alpha_{i-1})[X_i]/f_i(X_1,\cdots,X_i)\cong K(\alpha_1,\cdots,\alpha_i).$$ We observe that each $f_i(X_1,\cdots,X_i)\in K[X_1,\cdots,X_i]$ is monic in $X_i.$ We claim that $\Ker\theta=\gen{f_1(X_1),\cdots,f_n(X_1,\cdots,X_n)}.$ By construction of $f_i(X_1,\cdots,X_i),$ we have $f_i(X_1,\cdots,X_i)\in\Ker\theta$ for all $1\leq i\leq n.$ We assume that degree of $X_i$ in $f_i(X_1,\cdots,X_i)$ is $d_i,1\leq i\leq n.$ Now pick $g(X_1,\cdots,X_n)\in\Ker\theta.$ By division algorithm \begin{align}
+g(X_1,\cdots,X_n)=q(X_1,\cdots,X_n)f_n(X_1,\cdots,X_n)&+r^{(n)}_0(X_1,\cdots,X_{n-1})\\
+&+\cdots+r^{(n)}_{d_n-1}(X_1,\cdots,X_{n-1})X_n^{d_n-1}\nonumber.
+\end{align}
+Again dividing $r^{(n)}_i(X_1,\cdots,X_{i-1})$ by $f_{n-1}(X_1,\cdots,X_{n-1}),1\leq i\leq d_n-1$ we get \begin{align*}
+r^{(n)}_i(X_1,\cdots,X_{n-1})=q_i(x_1,\cdots,X_{n-1})&f_{n-1}(X_1,\cdots,X_{n-1})+r^{(n-1)}_0(X_1,\cdots,X_{n-2})\\
+&+\cdots+r^{(n-1)}_{d_{n-1}-1}(X_1,\cdots,X_{n-2})X_{n-1}^{d_{n-1}-1}
+\end{align*}
+for all $1\leq i\leq d_n-1.$ Repeated application of division algorithm shows that $$r^{(2)}_i(X_1)=q_i(X_1)f_1(X_1)+r_0^{(1)}+r_1^{(1)}X_1+\cdots+r_{d_1-1}^{(1)}X_1^{d_1-1}$$ for all $1\leq i\leq d_2-1.$ Putting all these together in (14) and applying $\theta$ both sides, we get $g(\alpha_1,\cdots,\alpha_n)=0$ that is $g\in \gen{f_1(X_1),\cdots,f_n(X_1,\cdots,X_n)}.$ Therefore our claim is proved. \qed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Primary decomposition}
+
+\begin{defn}
+
+\begin{enumerate}
+
+\item Let $A$ be a ring and $M$ be an $A-$module. A prime ideal $p$ is called associated prime ideal of $M$ if there exists $x\in M$ such that $p=\ann_A(x).$ We define $$\ass_A(M)=\{p\in\spec A:p\text{ is an associated prime of M}\}.$$
+
+\item For an ideal $I\subseteq A$, the associated primes of the $A-$modules $A/I$ are referred to as the prime divisors of $I.$
+
+\end{enumerate}
+
+\end{defn}
+
+\begin{obs}
+
+Let $A$ be a Noetherian ring and $M$ be a non zero $A-$module. We consider $$\sum=\{\ann_A(x):x\in M\setminus\{0\}\}.$$ Since $A$ is Noetherian, every chain of ideals has an upper bound. By Zorn's lemma, $\displaystyle\sum$ has a maximal element. We claim that maximal elements of $\displaystyle\sum\subseteq \ass_A(M).$ In particular $\ass_A(M)\neq\emptyset$ if $M\neq 0.$ Let $\ann_A(y)$ is a maximal element of $\displaystyle\sum$ for some $y\in M\setminus\{0\}.$ Let $ab\in \ann_A(y) \Rightarrow (ab)y=0 \Rightarrow a(by)=0.$ If $by\neq 0$ then $a\in \ann_A(by).$ Since $\ann_A(y)\subseteq \ann_A(by)$ and $\ann_A(y)$ is a maximal element in $\displaystyle\sum$, we have $\ann_A(y)=\ann_A(by) \Rightarrow a\in \ann_A(y)$ that is $\ann_A(y)\in \ass_A(M).$
+
+\end{obs}
+
+\begin{corollary}
+
+The set of all zero divisors of $M,Z(M)=\displaystyle\bigcup_{p\in \ass_A(M)}p.$
+
+\end{corollary}
+
+\proof Let $a\in Z(M)$ then there is $x_0\in M\setminus\{0\}$ such that $ax_0=0 \Rightarrow a\in \ann_A(x_0).$ Consider a maximal element of $\displaystyle\sum$ containing $\ann_A(x_0).$ Since maximal elements of $\displaystyle\sum$ are associated primes we have $Z(M)\subseteq \displaystyle\bigcup_{p\in \ass_A(M)}p.$ Now pick $b\in \displaystyle\bigcup_{p\in \ass_A(M)}p \Rightarrow b\in p$ for some $p\in \ass_A(M)$ that is $bx=0$ for some non zero $x\in M \Rightarrow b\in Z(M).$ This completes the proof. \qed
+
+
+\begin{obs}
+
+Let $A$ be a ring and $M$ be an $A-$module, $p\in\spec A.$ $p\in \ass_A(M)$ if and only if there is an exact sequence $0\to A/p\to M.$
+
+\end{obs}
+
+\proof Let $p\in\ass_A(M)$ then $p$ is of the form $\ann_A(x)$ for some $x\in M.$ Define $\theta_x:A\to M$ by $\theta_x(a)=ax.$ Then $\Ker\theta_x=p$ and by first isomorphism theorem $A/p\hookrightarrow M.$ 
+
+ Conversely, there is an exact sequence $0\to A/p\xrightarrow{f} M.$ Pick $a+p\in A/p$ such that $a\notin p$ and consider the element $f(a+p)=m$. We shall show that $\ann_A(m)=p.$ Let $s\in \ann_A(m) \Rightarrow sm=0 \Rightarrow  sf(a+p)=0 \Rightarrow f(sa+p)= 0 \Rightarrow sa\in p \Rightarrow s\in p$ (since $a\notin p$). Similarly take $b\in p.$ Now $$sx=sf(a+p)=f(sa+p)=f(0+p)=0.$$ Therefore, $s\in\ann_A(x).$ \qed
+
+
+\begin{obs}
+
+Let $A$ be a ring, $M$ be an $A-$module and $S$ be a multiplicative set in $A$. Then $$\ass_{S^{-1}A}(S^{-1}M)\supseteq \{S^{-1}p:p\in\ass_A(M)~\text{and}~p\cap S=\emptyset\}.$$ Equality occurs if $A$ is Noetherian.
+
+\end{obs}
+
+\proof Let $p\in \ass_A(M)$ and $p\cap S=\emptyset.$ We have an exact sequence $0\to A/p\to M$ of $A-$module. Since $S^{-1}A$ is flat, 
+
+\begin{center}
+
+\begin{tikzcd}
+0\ar[r]  & A/p\otimes_A S^{-1}A \ar[r] & M\otimes_A S^{-1}A &~\text{is exact}\\
+0\ar[r]  &\dfrac{S^{-1}A}{S^{-1}p} \ar[u, phantom, "\nvisom"]\ar[r] & S^{-1}M\ar[u, phantom, "\nvisom"] &~\text{is exact.}
+\end{tikzcd}
+
+\end{center}
+Therefore by previous observation $S^{-1}p\in \ass_{S^{-1}A}(S^{-1}M).$
+
+ Suppose $A$ is Noetherian. Let $S^{-1}p\in\ass_{S^{-1}A}(S^{-1}M)$. Then $S^{-1}p$ is of the form $\ann_{S^{-1}A}(x/s)$ and $p\cap S=\emptyset.$ We observe that $\ann_{S^{-1}A}(x/s)=\ann_{S^{-1}A}=(x/1)$ as $\dfrac{x}{s}=\dfrac{1}{s}\cdot\dfrac{x}{1}$ and $\dfrac{1}{s}$ is unit in $S^{-1}A.$ Consider the set $$G=\{\ann_A(ux):u\in S~\text{and}~ux\neq 0\}.$$
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{corollary}
+
+Let $A$ be a Noetherian ring and $M$ be an $A-$module. Then $p\in \ass_A(M)$ if and only if $pA_p\in\ass_{A_p}(M_p).$
+
+\end{corollary}
+
+\begin{theorem}
+
+Let $A$ be a ring and $$0\to M'\xrightarrow{f} M\xrightarrow{g} M''\to 0$$ be an exact sequence of $A-$module. Then $\ass_A(M)\subseteq \ass_A(M')\cup \ass_A(M'').$
+
+\end{theorem}
+
+\proof Let $p\in \ass_A(M).$ Then there is an exact sequence $0\to A/p\to M$. Let $\theta(A/p)=N$ be a submodule of $M.$ \\
+\textbf{Case 1.} If $N\cap f(M')\neq \{0\}.$ Let $\theta(a+p)\in N\cap f(M').$ We know that $\ann_A(\theta(a+p))=p.$ Let $\theta(a+p)=f(x')$ for some $x'\in M'.$ Since $f$ is injective, $\ann_A(f(x'))=\ann_A(x')\Rightarrow p\in \ass_A(M').$\\
+\textbf{Case 2.} If $N\cap f(M')=\{0\} \Rightarrow N\cap \Ker g=\{0\}.$ Let $\theta(a+p)\in N$ where $a\notin p.$ We claim that $\ann_A(g\circ \theta(a+p))=\ann_A(\theta(a+p)).$ It is quite obvious that $\ann_A(\theta(a+p))\subseteq \ann_A(g\circ\theta(a+p)).$ For the reverse inclusion, Let $\alpha\in \ann_A(g\circ\theta(a+p)) \Rightarrow \alpha g(\theta(a+p))=0 \Rightarrow g(\alpha \theta(a+p))=0 \Rightarrow \alpha\theta(a+p)\in \Ker g\cap N=\{0\} \Rightarrow \ann_A(\theta(a+p)).$ \qed
+
+\begin{corollary}
+
+Let $A$ be a ring and $M$ be an $A-$module, $N$ a submodule of $M$. Then, \begin{enumerate}
+
+\item $\ass_A(M)\subseteq \ass_A(N)\cup \ass_A(M/N).$
+
+\item $\ass_A(N)\subseteq \ass_A(M).$
+
+\end{enumerate}
+
+When does the equality holds in (1)?
+
+\end{corollary}
+
+
+Let $A$ be a Noetherian ring, $M$ a finitely generated $A-$module. Then we know that $\ass_A(M)\neq \emptyset.$ Consider $p_1\in\ass_A(M)$, then there exists an exact sequence $0\to A/p_1\xrightarrow{\theta_1} M.$ Let $\theta_1(A/p_1)=M_1\subseteq M.$ If $M/M_1=0$ then we stop. If not, then pick $p_2\in\ass_A(M/M_1)$ and we have an exact sequence $0\to A/p_2\xrightarrow{\theta_2} M/M_1.$ Let $\theta_2(A/p_2)=M_2/M_1$ where $M_1\subseteq M_2\subseteq M.$ If $\dfrac{M/M_1}{M_2/M_1}\cong M/M_2=0$ then we stop, otherwise pick $p_3\in \ass_A(M/M_2)$ and continue this process. Then we get a chain of submodules $$(*)\qquad\qquad 0=M_0\subseteq M_1\subseteq M_2\subseteq\cdots$$ of $M$ where $M_i/M_{i-1}\cong A/p_i$ and $p_i\in \ass_A(M/M_{i-1}).$ Since $M$ is Noetherian, the chain $(*)$ becomes stationary after some finite steps. So there exists $k\in{\NN}$ such that $M_k=M.$ For each $1\leq i\leq k$ we have an exact sequence $$0\to M_{i-1}\to M_i\to M_i/M_{i-1}\to 0$$ and by the previous corollary we have $\ass_A(M_i)\subseteq \ass_A(M_{i-1})\cup \ass_A(M_i/M_{i-1}).$ If we put $i=k$ then \begin{align*}
+\ass_A(M)&\subseteq \ass_A(M_{k-1})\cup \ass_A(M/M_{k-1})\\
+&\subseteq\ass_A(M_{k-2})\cup \ass_A(M_{k-1}/M_{k-2})\cup \ass_A(M/M_{k-1})\\
+&\quad\vdots\\
+&\subseteq \ass_A(M_0)\cup \left(\displaystyle\bigcup_{i=1}^k \ass(M_i/M_{i-1})\right).
+\end{align*}
+
+Note that $\ass_A(M_0)=\emptyset$ and since $M_i/M_{i-1}\cong A/p_i,$ so $\ass_A(M_i/M_{i-1})=\{p_i\}.$ Therefore $\ass_A(M)\subseteq \{p_1,\cdots,p_n\}.$
+
+\begin{corollary}
+
+If $A$ is Noetherian and $M$ is a finitely generated $A-$module then $\ass_A(M)$ is finite.
+
+\end{corollary}
+
+\begin{theorem}
+
+Let $A$ be a Noetherian ring and $M$ be an $A-$module. Then $\ass_A(M)\subseteq \supp(M).$
+
+\end{theorem}
+
+\proof Let $p\in\ass_A(M)$ then there is an exact sequence $0\to A/p\to M$. Since $A_p$ is flat, \begin{center}
+
+\begin{tikzcd}
+0\ar[r]  & A/p\otimes_A A_p \ar[r] & M\otimes_A A_p &~\text{is exact}\\
+0\ar[r]  &\dfrac{A_p}{pA_p} \ar[u, phantom, "\nvisom"]\ar[r] & M_p\ar[u, phantom, "\nvisom"] &~\text{is exact.}
+\end{tikzcd}
+
+\end{center}
+
+Since $pA_p$ is maximal in $A_p$, $A_p/pA_p\neq 0$ and therefore $M_p\neq 0 \Rightarrow p\in\supp(M).$ \qed
+
+\begin{theorem}
+
+Let $A$ be a Noetherian ring and $M$ be an $A-$module. Then $\min \ass_A(M)=\min \supp(M)$ where $\min \ass_A(M)$ and $\min\supp(M)$ are the collection of minimal primes of $\ass_A(M)$ and $\supp(M)$ respectively.
+
+\end{theorem}
+
+\proof Let $p\in\min \ass_A(M) \Rightarrow p\in\supp(M).$ Suppose $p\notin \min\supp(M)$ then there is a $q\in \supp(M)$ such that $q\subsetneq p$. Since $q\in\supp(M) \Rightarrow M_q\neq 0$ so there exists $p_1\in \spec A$ such that $p_1A_q\in\ass_{A_q}(M_q) \Rightarrow p_1\in\ass_A(M)$ but $p_1\subseteq q\subsetneq p$ which is a contradiction as $p$ is a minimal prime in $\ass_A(M).$ Therefore $\min\ass_A(M)\subseteq \min\supp(M).$ 
+
+ Conversely, let $p\in\min\supp(M) \Rightarrow M_p\neq 0 \Rightarrow \ass_{A_p}(M_p)\neq 0$.\\
+\textbf{Claim.} $\ass_{A_p}(M_p)=\{pA_p\}.$ If $qA_p\in\spec A_p$ with $q\subsetneq p$ such that $qA_p\in\ass_{A_p}(M_p)$ then $q\in \ass_A(M)$ so there exists an exact sequence $0\to A/q\to M.$ Flatness of $A_q$ gives \begin{center}
+
+\begin{tikzcd}
+0\ar[r]  & A/q\otimes_A A_q \ar[r] & M\otimes_A A_q &~\text{is exact}\\
+0\ar[r]  &\dfrac{A_q}{qA_q} \ar[u, phantom, "\nvisom"]\ar[r] & M_q\ar[u, phantom, "\nvisom"] &~\text{is exact.}
+\end{tikzcd}
+
+\end{center}
+but $M_q=0$ gives us a contradiction as $q\subsetneq p$ and $p\in\min\supp(M).$ Hence $\ass_{A_p}(M_p)=\{pA_p\} \Rightarrow p\in \ass_A(M).$ Since $p\in\min\supp(M)$ and $\ass_A(M)\subsetneq \supp(M) \Rightarrow p\in\min\ass_A(M).$ \qed
+
+\begin{obs}
+
+Let $A$ be a Noetherian ring and $M$ a finitely generated $A-$module. Let $p\in\supp(M)$ and $p\subseteq q$ then we observe that $q\in\supp(M)$. If not then $M_q=0$ so there exists $u\in A\setminus q$ such that $uM=\{0\}$ but $A\setminus q\subseteq A\setminus p \Rightarrow M_p=0$ which is a contradiction. Suppose $\min \supp(M)=\{p_1,\cdots,p_r\}$ then $\supp(M)=\displaystyle\bigcup_{i=1}^r V(p_i)$ and $V(p_i)$'s are the irreducible component of the closed set $\supp(M)$ in $\spec A.$
+
+\end{obs}
+
+\begin{defn}
+
+The prime ideals $\{p_1,\cdots,p_r\}=\min\supp(M)=\min \ass_A(M)$ are called isolated primes of $M$ and the remaining assocoated primes are called embedded primes.
+
+\end{defn}
+
+\begin{defn}
+
+Let $A$ be a ring and $M$ be an $A-$module. A submodule $N$ of $M$ is said to be primary submodule of $M$ if the following condition holds for all $a\in A$ and $m\in M,m\notin N$ and $am\in N \Rightarrow a^kM\subseteq N$ for some $k>0.$ Equivalently, if $a$ is a zero divisor for $M/N$ then $a\in \sqrt{\ann_A(M/N)}.$
+
+\end{defn}
+
+If we take $M=A$ and $N=I$ and ideal of $A$ then $I$ is said to be primary ideal if $ab\in I$ with $b\notin I \Rightarrow a\in \sqrt{I}$ for all $a,b\in A.$
+
+\begin{eg}
+
+Let $A$ be a ring and $m\in\mspec A$. Then $m^k$ is a primary ideal. Let $ab\in m^k$ with $b\notin m^k.$ We need to show that $a\in \sqrt{m^k}=m.$ As $ab\in m^k\subseteq m$,  Since $b+m^k\neq 0+m^k,b+m^k\in m/m^k$ (notice that it is not an unit in $A/m^k$). Then there is an element $\alpha+m^k\in m/m^k$ such that 
+
+\end{eg}
+
+
+
+
+
+
+
+\end{document}
